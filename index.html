@@ -493,6 +493,10 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
   border-radius:14px;background:var(--gray-light);color:var(--gray);text-transform:uppercase}
 #mod-horas .h-pill.ex{background:rgba(26,95,168,.13);color:var(--blue)}
 #mod-horas .h-pill.dom{background:rgba(236,68,9,.1);color:var(--orange-2)}
+#mod-horas .h-pill.fest{background:rgba(44,62,80,.12);color:var(--navy);font-weight:700}
+#mod-horas .h-fest-badge{display:inline-block;font-size:10px;font-weight:700;font-family:'Barlow Condensed',sans-serif;
+  background:rgba(44,62,80,.12);color:var(--navy);padding:2px 7px;border-radius:12px;letter-spacing:.03em;vertical-align:middle;margin-left:6px}
+#mod-horas .h-warn.festivo{color:var(--blue);background:rgba(26,95,168,.08);border-radius:8px;padding:6px 10px}
 #mod-horas .h-note{font-size:11px;color:var(--gray);line-height:1.5;background:var(--gray-light);
   border-radius:10px;padding:11px 13px;margin-top:10px}
 #mod-horas .h-note b{color:var(--navy)}
@@ -1972,6 +1976,128 @@ window.GAS = {
 (function(){
 'use strict';
 
+/* ─── FESTIVOS COLOMBIA ────────────────────────────────────────────
+   Fuente: Ley 51/1983 (Ley Emiliani) + Ley 2578/2026 (Chiquinquirá)
+   Recargo: 90% desde jul-2026 (Ley 2466/2025), 100% desde jul-2027.
+   Festivos NO trabajados: no cuentan como horas debidas (CST art.177).  */
+
+const H_FESTIVOS_FIJOS = [
+  // [mes(1-12), día] — misma fecha cada año, no se trasladan
+  [1,  1],  // Año Nuevo
+  [5,  1],  // Día del Trabajo
+  [7,  20], // Día de la Independencia
+  [8,  7],  // Batalla de Boyacá
+  [12, 8],  // Inmaculada Concepción
+  [12, 25], // Navidad
+];
+
+// Festivos que se trasladan al lunes siguiente si no caen en lunes (Ley Emiliani)
+// [mes(1-12), día-base]
+const H_FESTIVOS_EMILIANI = [
+  [1,  6],  // Reyes Magos
+  [3,  19], // San José
+  [6,  29], // San Pedro y San Pablo
+  [7,  9],  // Virgen de Chiquinquirá (Ley 2578/2026)
+  [8,  15], // Asunción de la Virgen
+  [10, 12], // Día de la Raza / Diversidad Étnica
+  [11, 1],  // Todos los Santos
+  [11, 11], // Independencia de Cartagena
+];
+
+// Festivos relativos a Pascua (calculados cada año)
+// offset en días desde el Domingo de Pascua
+const H_FESTIVOS_PASCUA = [
+  -3,  // Jueves Santo
+  -2,  // Viernes Santo
+  39,  // Ascensión (Pascua+39, trasladado al lunes)
+  60,  // Corpus Christi (trasladado al lunes)
+  68,  // Sagrado Corazón (trasladado al lunes)
+];
+
+// Algoritmo de Meeus/Jones/Butcher para calcular Pascua
+function hPascua(anio) {
+  const a = anio % 19;
+  const b = Math.floor(anio / 100);
+  const c = anio % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const mes = Math.floor((h + l - 7 * m + 114) / 31);
+  const dia = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(anio, mes - 1, dia);
+}
+
+// Primer lunes desde una fecha base (inclusive si ya es lunes)
+function hPrimerLunes(base) {
+  const d = new Date(base);
+  const w = d.getDay();
+  if (w === 1) return d;                          // ya es lunes
+  d.setDate(d.getDate() + (w === 0 ? 1 : 8 - w)); // siguiente lunes
+  return d;
+}
+
+function hAddDias(d, n) {
+  const r = new Date(d);
+  r.setDate(r.getDate() + n);
+  return r;
+}
+
+// Retorna Set de strings "YYYY-MM-DD" de todos los festivos del año
+function hFestivosDelAnio(anio) {
+  const set = new Set();
+  const add = (d) => set.add(hIsoDate(d));
+
+  // Fijos
+  H_FESTIVOS_FIJOS.forEach(([mes, dia]) => add(new Date(anio, mes - 1, dia)));
+
+  // Emiliani: trasladar al primer lunes desde la fecha base
+  H_FESTIVOS_EMILIANI.forEach(([mes, dia]) => add(hPrimerLunes(new Date(anio, mes - 1, dia))));
+
+  // Pascua y relativos
+  const pascua = hPascua(anio);
+  // Jueves y Viernes Santo: fecha fija (nunca se trasladan)
+  add(hAddDias(pascua, -3));
+  add(hAddDias(pascua, -2));
+  // Los otros relativos a Pascua se trasladan al lunes
+  [39, 60, 68].forEach(offset => add(hPrimerLunes(hAddDias(pascua, offset))));
+
+  return set;
+}
+
+// Caché por año para no recalcular en cada render
+const hFestivosCache = {};
+function hEsFestivo(isoDate) {
+  const anio = parseInt(isoDate.substring(0, 4));
+  if (!hFestivosCache[anio]) hFestivosCache[anio] = hFestivosDelAnio(anio);
+  return hFestivosCache[anio].has(isoDate);
+}
+
+// Recargo vigente según la fecha ISO del lunes de la semana
+function hRecargo(isoDateLunes) {
+  const anio = parseInt(isoDateLunes.substring(0, 4));
+  const mes  = parseInt(isoDateLunes.substring(5, 7));
+  // Desde jul-2027: 100%
+  if (anio > 2027 || (anio === 2027 && mes >= 7)) return 100;
+  // Desde jul-2026: 90%
+  if (anio > 2026 || (anio === 2026 && mes >= 7)) return 90;
+  // Antes jul-2026: 80%
+  return 80;
+}
+
+// Dado el día de la semana (0=Lunes..6=Domingo) y el lunes de la semana,
+// retorna la fecha ISO de ese día
+function hFechaDelDia(lunesisoDate, dayIndex) {
+  const base = new Date(lunesisoDate + 'T00:00:00');
+  base.setDate(base.getDate() + dayIndex);
+  return hIsoDate(base);
+}
+
 const H_EMPLOYEES = ['Paola','Carlos','Lisbeth','César','Diego','Federico'];
 const H_DAYS = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 const H_MESES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
@@ -2045,34 +2171,68 @@ function hFillWeek(partial){
 }
 function hDescansos(emp){ return hNum(hConfig && hConfig.descansos ? hConfig.descansos[emp] : 0, 0); }
 
-function hCalcHoras(entrada, salida, descansos, abre){
+function hCalcHoras(entrada, salida, descansos, abre, esFestivo){
+  // Si es festivo y el empleado no trabajó ese día, retorna null (no cuenta para la meta)
+  if(esFestivo && !entrada && !salida) return null;
   const a = hMinutes(entrada), b = hMinutes(salida);
   if(a===null || b===null) return 0;
   let bruto = (b - a) / 60;
   if(bruto <= 0) return 0;
   return Math.max(0, bruto - (descansos||0) - (abre ? hNum(hConfig.desayuno,0) : 0));
 }
-function hDayHoras(emp, day){ const c = hWeekData[emp][day]; return hCalcHoras(c.entrada, c.salida, hDescansos(emp), c.abre); }
+function hDayHoras(emp, day, dayIndex){
+  const c = hWeekData[emp][day];
+  const iso = dayIndex !== undefined ? hFechaDelDia(hWeekKey(hWeekMonday), dayIndex) : null;
+  const fest = iso ? hEsFestivo(iso) : false;
+  const h = hCalcHoras(c.entrada, c.salida, hDescansos(emp), c.abre, fest);
+  return h;  // null = festivo no trabajado
+}
 
 // Avisos por día: detecta errores que antes quedaban en 0.0 h en silencio
-function hDayWarning(emp, day){
+function hDayWarning(emp, day, dayIndex){
   const c = hWeekData[emp][day];
+  const iso = dayIndex !== undefined ? hFechaDelDia(hWeekKey(hWeekMonday), dayIndex) : null;
+  const fest = iso ? hEsFestivo(iso) : false;
   const a = hMinutes(c.entrada), b = hMinutes(c.salida);
-  if(a===null && b===null) return null;
+  if(a===null && b===null){
+    // Día sin marcar: si es festivo, mostrar badge (no aviso de error)
+    return null;
+  }
   if(a===null || b===null) return 'Falta la hora de ' + (a===null ? 'entrada' : 'salida') + '.';
   if(b <= a) return 'La salida no puede ser anterior o igual a la entrada.';
   const bruto = (b - a) / 60;
   const resta = hDescansos(emp) + (c.abre ? hNum(hConfig.desayuno,0) : 0);
   if(bruto - resta <= 0) return 'Los descansos ('+resta.toFixed(1)+'h) se llevan todo el turno.';
+  if(fest){
+    const rec = hRecargo(hWeekKey(hWeekMonday));
+    return '🏛️ Festivo trabajado — recargo ' + rec + '% sobre la hora ordinaria (Ley 2466/2025).';
+  }
   return null;
 }
-function hWeekTotals(wdata, emp){
-  let total=0, dias=0, domingos=0;
+function hWeekTotals(wdata, emp, lunesisoDate){
+  let total=0, dias=0, domingos=0, festivosLibres=0, festivosTrabajados=0;
   const desc = hDescansos(emp);
-  H_DAYS.forEach((d,i)=>{ const c = wdata[emp][d]; const hh = hCalcHoras(c.entrada, c.salida, desc, c.abre);
-    total += hh; if(hh>0){ dias++; if(i===6) domingos++; } });
   const meta = hNum(hConfig.meta, 42);
-  return { total, extra: Math.max(0, total-meta), dias, domingos };
+  H_DAYS.forEach((d,i)=>{
+    const c = wdata[emp][d];
+    const iso = lunesisoDate ? hFechaDelDia(lunesisoDate, i) : null;
+    const fest = iso ? hEsFestivo(iso) : false;
+    const hh = hCalcHoras(c.entrada, c.salida, desc, c.abre, fest);
+    if(hh === null){
+      // Festivo no trabajado: no suma horas ni cuenta como día faltante
+      festivosLibres++;
+    } else {
+      total += hh;
+      if(hh > 0){ dias++; if(i === 6) domingos++; }
+      if(fest && hh > 0) festivosTrabajados++;
+    }
+  });
+  // Meta ajustada: (días laborables en la semana / 7 días normales) × meta
+  // o simplemente: meta - (festivosLibres/7)*meta
+  const metaEfectiva = Math.max(0, meta * (7 - festivosLibres) / 7);
+  // Redondear a 2 decimales para evitar precisión flotante
+  const metaEfectivaR = Math.round(metaEfectiva * 100) / 100;
+  return { total, extra: Math.max(0, total - metaEfectivaR), dias, domingos, festivosLibres, festivosTrabajados, metaEfectiva: metaEfectivaR };
 }
 function hEstadoFor(total, meta){
   if(total > meta+0.001) return { label:'Horas extra: '+(total-meta).toFixed(1)+'h', cls:'extra' };
@@ -2218,30 +2378,35 @@ function hRenderMonthNav(){
     '<div class="h-label">'+H_MESES_L[hMonthAnchor.getMonth()]+' '+hMonthAnchor.getFullYear()+
     '<small>Semanas que inician en el mes</small></div>'+
     '<button type="button" class="h-nav-btn" id="hNextMonth" aria-label="Mes siguiente">›</button>'+
-    '<button type="button" class="h-gear" id="hGearBtn" aria-label="Ajustes">'+hGearIcon()+'</button></div>';
+    '<button type="button" class="h-gear" id="hGearBtn2" aria-label="Ajustes">'+hGearIcon()+'</button></div>';
 }
 
 function hRenderEquipo(){
-  const meta = hNum(hConfig.meta, 42);
+  const wk = hWeekKey(hWeekMonday);
   let out = '';
   H_EMPLOYEES.forEach(emp=>{
-    const t = hWeekTotals(hWeekData, emp);
-    const est = hEstadoFor(t.total, meta);
+    const t = hWeekTotals(hWeekData, emp, wk);
+    const est = hEstadoFor(t.total, t.metaEfectiva);
+    const metaLbl = t.metaEfectiva.toFixed(1) + (t.festivosLibres > 0 ? 'h*' : 'h');
     out += '<button type="button" class="h-emp-card" data-hemp="'+hEsc(emp)+'"><span class="h-tag"></span>'+
       '<span><span class="h-name">'+hEsc(emp)+'</span><span class="h-chip '+est.cls+'">'+est.label+'</span></span>'+
-      '<span class="h-num"><b>'+t.total.toFixed(1)+'h</b>meta '+meta+'h</span></button>';
+      '<span class="h-num"><b>'+t.total.toFixed(1)+'h</b>meta '+metaLbl+'</span></button>';
   });
   return out;
 }
 
 function hDayCardInner(emp, day, i){
   const c = hWeekData[emp][day];
-  const horas = hDayHoras(emp, day);
-  const warn = hDayWarning(emp, day);
+  const isoDay = hFechaDelDia(hWeekKey(hWeekMonday), i);
+  const fest = hEsFestivo(isoDay);
+  const horas = hDayHoras(emp, day, i);
+  const warn = hDayWarning(emp, day, i);
+  const horasLabel = horas === null ? '— h' : horas.toFixed(1) + ' h';
   const idE = 'h-in-'+i+'-e', idS = 'h-in-'+i+'-s';
-  return '<div class="h-day-head"><span class="h-dname">'+day+'</span>'+
+  const festBadge = fest ? '<span class="h-fest-badge">🏛️ Festivo</span>' : '';
+  return '<div class="h-day-head"><span class="h-dname">'+day+' '+festBadge+'</span>'+
     '<span class="h-right"><button type="button" class="h-fill" data-hfillday="'+i+'">Tienda</button>'+
-    '<span class="h-horas" data-hhoras="'+day+'">'+horas.toFixed(1)+' h</span></span></div>'+
+    '<span class="h-horas" data-hhoras="'+day+'">'+horasLabel+'</span></span></div>'+
     '<div class="h-day-row">'+
     '<div class="h-field"><label for="'+idE+'">Entrada</label>'+
       '<input type="time" id="'+idE+'" data-hday="'+day+'" data-hkind="entrada" value="'+hEsc(c.entrada)+'" step="60"></div>'+
@@ -2251,7 +2416,7 @@ function hDayCardInner(emp, day, i){
       '<div class="h-sw '+(c.abre?'on':'')+'" data-hday="'+day+'" role="switch" tabindex="0" '+
       'aria-checked="'+(c.abre?'true':'false')+'" aria-label="Abrió el local el '+day+'"><div class="h-knob"></div></div></div>'+
     '</div>'+
-    '<div class="h-warn" data-hwarn="'+day+'" style="'+(warn?'':'display:none')+'">'+(warn?'⚠️ '+warn:'')+'</div>';
+    '<div class="h-warn'+(warn && warn.includes('🏛️') ? ' festivo' : '')+'" data-hwarn="'+day+'" style="'+(warn?'':'display:none')+'">'+(warn?'⚠️ '+warn:'')+'</div>';
 }
 
 function hRenderDetalle(){
@@ -2267,35 +2432,38 @@ function hRenderDetalle(){
   return out;
 }
 function hSummaryHTML(){
-  const meta = hNum(hConfig.meta, 42);
-  const t = hWeekTotals(hWeekData, hActiveEmployee);
-  const est = hEstadoFor(t.total, meta);
+  const t = hWeekTotals(hWeekData, hActiveEmployee, hWeekKey(hWeekMonday));
+  const est = hEstadoFor(t.total, t.metaEfectiva);
+  const metaLbl = t.festivosLibres > 0 ? t.metaEfectiva.toFixed(1)+'h*' : t.metaEfectiva.toFixed(1)+'h';
+  const festNote = t.festivosLibres > 0 ? ' · '+t.festivosLibres+' festivo'+(t.festivosLibres>1?'s':'')+' libre'+(t.festivosLibres>1?'s':'') : '';
   return '<div class="h-summary" id="hSummary">'+
-    '<div><div class="h-big" id="hSumTotal">'+t.total.toFixed(1)+'<span>/ '+meta+'h</span></div>'+
-    '<div class="h-meta" id="hSumMeta">Descansos '+hDescansos(hActiveEmployee)+'h/día · '+t.dias+' días trabajados</div></div>'+
+    '<div><div class="h-big" id="hSumTotal">'+t.total.toFixed(1)+'<span>/ '+metaLbl+'</span></div>'+
+    '<div class="h-meta" id="hSumMeta">Descansos '+hDescansos(hActiveEmployee)+'h/día · '+t.dias+' días trabajados'+festNote+'</div></div>'+
     '<div class="h-chip '+est.cls+'" id="hSumChip">'+est.label+'</div></div>';
 }
 
 /* ─── ACTUALIZACIÓN QUIRÚRGICA ─────────────────────────────────
    Se usa al editar: toca solo los números afectados y deja
    intactos los <input>, para que el picker nativo no se cierre.  */
-function hTouchDay(day){
+function hTouchDay(day, dayIndex){
   const horasEl = document.querySelector('#horas-root [data-hhoras="'+day+'"]');
-  if(horasEl) horasEl.textContent = hDayHoras(hActiveEmployee, day).toFixed(1) + ' h';
+  if(horasEl){
+    const h = hDayHoras(hActiveEmployee, day, dayIndex);
+    horasEl.textContent = h === null ? '— h' : h.toFixed(1) + ' h';
+  }
   const warnEl = document.querySelector('#horas-root [data-hwarn="'+day+'"]');
   if(warnEl){
-    const w = hDayWarning(hActiveEmployee, day);
+    const w = hDayWarning(hActiveEmployee, day, dayIndex);
     if(w){ warnEl.textContent = '⚠️ ' + w; warnEl.style.display = ''; }
     else { warnEl.textContent = ''; warnEl.style.display = 'none'; }
   }
   hTouchSummary();
 }
 function hTouchSummary(){
-  const meta = hNum(hConfig.meta, 42);
-  const t = hWeekTotals(hWeekData, hActiveEmployee);
-  const est = hEstadoFor(t.total, meta);
+  const t = hWeekTotals(hWeekData, hActiveEmployee, hWeekKey(hWeekMonday));
+  const est = hEstadoFor(t.total, t.metaEfectiva);
   const tot = document.getElementById('hSumTotal');
-  if(tot) tot.innerHTML = t.total.toFixed(1) + '<span>/ ' + meta + 'h</span>';
+  if(tot) tot.innerHTML = t.total.toFixed(1) + '<span>/ ' + t.metaEfectiva.toFixed(1) + (t.festivosLibres > 0 ? 'h*' : 'h') + '</span>';
   const mt = document.getElementById('hSumMeta');
   if(mt) mt.textContent = 'Descansos ' + hDescansos(hActiveEmployee) + 'h/día · ' + t.dias + ' días trabajados';
   const chip = document.getElementById('hSumChip');
@@ -2322,6 +2490,7 @@ function hRenderMonth(){
       '<span class="h-pill ex">'+a.extra.toFixed(1)+' h extra</span>'+
       '<span class="h-pill">'+a.dias+' días</span>'+
       '<span class="h-pill dom">'+a.domingos+' domingos</span>'+
+      (a.festivosTrabajados ? '<span class="h-pill fest">'+a.festivosTrabajados+' fest.</span>' : '')+
       '<span class="h-pill">'+a.semanas+' semanas</span>'+
       '</div></div>';
   });
@@ -2339,8 +2508,9 @@ async function hLoadMonth(){
   for(const m of mondays){
     const wd = await hGetWeek(m);   // usa caché: normalmente 0 lecturas nuevas
     H_EMPLOYEES.forEach(e=>{
-      const t = hWeekTotals(wd, e);
+      const t = hWeekTotals(wd, e, hIsoDate(m));
       agg[e].total += t.total; agg[e].extra += t.extra; agg[e].dias += t.dias; agg[e].domingos += t.domingos;
+      agg[e].festivosTrabajados = (agg[e].festivosTrabajados||0) + t.festivosTrabajados;
     });
   }
   hMonthAgg = agg; hMonthAggKey = key; hMonthLoading = false;
@@ -2381,6 +2551,8 @@ function hBindEvents(){
   });
   const gear = document.getElementById('hGearBtn');
   if(gear) gear.onclick = ()=>{ hSettingsOpen = true; hRender(); };
+  const gear2 = document.getElementById('hGearBtn2');
+  if(gear2) gear2.onclick = ()=>{ hSettingsOpen = true; hRender(); };
 
   const overlay = document.getElementById('hOverlay');
   if(overlay) overlay.onclick = e=>{ if(e.target.id === 'hOverlay'){ hSettingsOpen = false; hRender(); } };
@@ -2420,8 +2592,9 @@ function hBindEvents(){
   hQ('input[type=time]').forEach(inp=>{
     const handler = ()=>{
       const day = inp.dataset.hday, kind = inp.dataset.hkind;
+      const di = H_DAYS.indexOf(day);
       hWeekData[hActiveEmployee][day][kind] = inp.value || '';
-      hTouchDay(day);
+      hTouchDay(day, di >= 0 ? di : undefined);
       hQueueSave(hActiveEmployee);
     };
     inp.oninput  = handler;   // iOS dispara input al girar la rueda
@@ -2431,11 +2604,12 @@ function hBindEvents(){
   hQ('.h-sw').forEach(sw=>{
     const toggle = ()=>{
       const day = sw.dataset.hday;
+      const di = H_DAYS.indexOf(day);
       const val = !hWeekData[hActiveEmployee][day].abre;
       hWeekData[hActiveEmployee][day].abre = val;
       sw.classList.toggle('on', val);
       sw.setAttribute('aria-checked', val ? 'true' : 'false');
-      hTouchDay(day);
+      hTouchDay(day, di >= 0 ? di : undefined);
       hQueueSave(hActiveEmployee);
     };
     sw.onclick = toggle;
@@ -2452,7 +2626,7 @@ function hBindEvents(){
       const s = document.querySelector('#horas-root input[data-hday="'+day+'"][data-hkind="salida"]');
       if(e) e.value = H_STORE_HOURS[i][0];
       if(s) s.value = H_STORE_HOURS[i][1];
-      hTouchDay(day);
+      hTouchDay(day, i);
       hQueueSave(hActiveEmployee);
     };
   });
@@ -2473,8 +2647,13 @@ async function hOnVisible(){
   if(!hCargado) return;
   await hFlushAll();
   const hoyLunes = hMondayOf(new Date());
-  if(!hUserNavigated && hWeekKey(hoyLunes) !== hWeekKey(hWeekMonday)){
+  // Si pasaron más de 2 semanas desde la semana visible, volver a hoy
+  // aunque el usuario haya navegado manualmente.
+  const msDesde = hoyLunes - hWeekMonday;
+  const semanasDesde = msDesde / (7 * 24 * 3600 * 1000);
+  if(hWeekKey(hoyLunes) !== hWeekKey(hWeekMonday) && (!hUserNavigated || semanasDesde > 2)){
     hWeekMonday = hoyLunes;
+    hUserNavigated = false;
   }
   hWeekData = await hGetWeek(hWeekMonday, true);   // 1 lectura, refresca entre teléfonos
   hLastRefresh = Date.now();
@@ -2500,6 +2679,21 @@ function hMaybeRefresh(){
 
 window.HORAS = {
   init(){ /* usa la misma sesión que Gastos y Gas */ },
+  // Helpers expuestos solo para pruebas automatizadas
+  _test: {
+    esFestivo: (iso) => hEsFestivo(iso),
+    recargo: (iso) => hRecargo(iso),
+    calcHoras: (e,s,d,a,f) => hCalcHoras(e,s,d,a,f),
+    weekTotals: (wd,emp,lun) => hWeekTotals(wd,emp,lun),
+    dayWarning: (wd,emp,day,i,mon) => {
+      // Temporarily swap globals for the test
+      const origData = hWeekData, origMon = hWeekMonday;
+      hWeekData = wd; hWeekMonday = mon ? new Date(mon+'T00:00:00') : hWeekMonday;
+      const w = hDayWarning(emp, day, i);
+      hWeekData = origData; hWeekMonday = origMon;
+      return w;
+    },
+  },
   async reload(){
     hConfig = await hCargarConfig();
     hWeekData = await hGetWeek(hWeekMonday, true);
