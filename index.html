@@ -378,10 +378,12 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
 #mod-gastos .sync-line{font-size:11px;color:#a99f90;text-align:center;padding:7px 10px 0}
 #mod-gastos .modal{font-family:'Barlow',sans-serif}
 
-/* ═══════════════════ MÓDULO HORAS ═══════════════════ */
+/* ═══════════════ MÓDULO HORAS ═══════════════ */
 #mod-horas{background:transparent}
 #mod-horas .content{max-width:600px;margin:0 auto;padding:0 16px calc(24px + var(--safe-bottom))}
 #mod-horas button{touch-action:manipulation}
+
+/* barra sticky con fondo, para que el contenido no se vea por los bordes */
 #mod-horas .h-sticky{position:sticky;top:calc(var(--header-h) + var(--safe-top));z-index:92;
   background:var(--cream);padding:12px 0 8px;margin:0 -4px 4px;}
 #mod-horas .h-tabs{display:flex;background:var(--navy);border-radius:11px;padding:3px;gap:2px;
@@ -390,6 +392,7 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
   font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:.02em;
   color:#8FA3B5;cursor:pointer;text-transform:uppercase;min-height:44px}
 #mod-horas .h-tabs button.active{background:var(--orange);color:#fff}
+
 #mod-horas .h-weeknav{display:flex;align-items:center;justify-content:space-between;background:var(--white);
   border-radius:12px;padding:8px 8px;margin-bottom:10px;box-shadow:var(--shadow);gap:6px}
 #mod-horas .h-weeknav .h-nav-btn{width:44px;height:44px;border-radius:10px;border:none;background:var(--gray-light);
@@ -404,6 +407,7 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
 #mod-horas .h-gear{width:44px;height:44px;border-radius:10px;border:none;background:var(--gray-light);
   display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto}
 #mod-horas .h-gear svg{width:18px;height:18px;stroke:var(--navy);fill:none;stroke-width:1.8}
+
 #mod-horas .h-chip{display:inline-flex;align-items:center;gap:5px;font-family:'Barlow Condensed',sans-serif;
   font-size:11px;font-weight:700;padding:5px 10px 5px 9px;border-radius:20px;text-transform:uppercase}
 #mod-horas .h-chip::before{content:'';width:6px;height:6px;border-radius:50%;flex:0 0 auto}
@@ -413,6 +417,7 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
 #mod-horas .h-chip.faltan::before{background:var(--red)}
 #mod-horas .h-chip.extra{background:rgba(26,95,168,.13);color:var(--blue)}
 #mod-horas .h-chip.extra::before{background:var(--blue)}
+
 #mod-horas .h-emp-card{background:var(--white);border-radius:14px;padding:14px 15px;margin-bottom:9px;
   display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;position:relative;
   overflow:hidden;box-shadow:var(--shadow);min-height:44px;text-align:left;width:100%;border:none;font-family:inherit}
@@ -423,6 +428,7 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
 #mod-horas .h-emp-card .h-num{font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--gray);
   text-align:right;flex:0 0 auto}
 #mod-horas .h-emp-card .h-num b{color:var(--navy);font-size:17px;display:block;margin-bottom:1px;font-weight:800}
+
 #mod-horas .h-emp-select{display:flex;gap:7px;overflow-x:auto;padding:2px 0 6px;margin-bottom:10px;
   -webkit-overflow-scrolling:touch;scrollbar-width:none}
 #mod-horas .h-emp-select::-webkit-scrollbar{display:none}
@@ -430,6 +436,7 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
   padding:10px 15px;border-radius:20px;border:none;background:var(--white);color:var(--gray);cursor:pointer;
   white-space:nowrap;box-shadow:var(--shadow);min-height:44px}
 #mod-horas .h-emp-select button.active{background:var(--navy);color:#fff}
+
 #mod-horas .h-day-card{background:var(--white);border-radius:12px;margin-bottom:9px;padding:11px 14px 13px;
   box-shadow:var(--shadow)}
 #mod-horas .h-day-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;gap:8px}
@@ -446,6 +453,7 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
 #mod-horas .h-field{flex:1;min-width:0}
 #mod-horas .h-field label{display:block;font-size:9.5px;color:var(--gray);font-weight:700;letter-spacing:.04em;
   text-transform:uppercase;margin-bottom:4px;font-family:'Barlow',sans-serif}
+/* 16px evita que iOS haga zoom al enfocar el campo */
 #mod-horas .h-field input[type=time]{width:100%;border:1px solid var(--gray-light);border-radius:8px;
   padding:10px 8px;font-family:'Barlow',sans-serif;font-size:16px;background:var(--gray-light);
   color:var(--navy);min-height:44px;-webkit-appearance:none;appearance:none}
@@ -461,11 +469,13 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
 #mod-horas .h-sw.on .h-knob{left:20px}
 #mod-horas .h-warn{margin-top:8px;font-size:11px;color:var(--red);font-weight:600;display:flex;
   align-items:center;gap:5px;line-height:1.35}
+
 #mod-horas .h-summary{background:var(--navy);color:#fff;border-radius:14px;padding:16px 18px;margin-top:10px;
   display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:var(--shadow)}
 #mod-horas .h-summary .h-big{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;line-height:1}
 #mod-horas .h-summary .h-big span{font-size:15px;font-weight:600;opacity:.55;margin-left:3px}
 #mod-horas .h-summary .h-meta{font-family:'Barlow',sans-serif;font-size:10.5px;opacity:.65;margin-top:5px}
+
 #mod-horas .h-month-band{background:var(--white);border-radius:12px;padding:13px 15px;margin-bottom:12px;
   display:flex;justify-content:space-between;align-items:center;gap:10px;box-shadow:var(--shadow)}
 #mod-horas .h-month-band .h-mtot{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;
@@ -490,6 +500,7 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
 #mod-horas .h-note{font-size:11px;color:var(--gray);line-height:1.5;background:var(--gray-light);
   border-radius:10px;padding:11px 13px;margin-top:10px}
 #mod-horas .h-note b{color:var(--navy)}
+
 #mod-horas .h-overlay{position:fixed;inset:0;background:rgba(14,39,60,.6);z-index:500;display:flex;
   align-items:flex-end;justify-content:center}
 #mod-horas .h-modal{background:var(--white);width:100%;max-width:520px;border-radius:18px 18px 0 0;
@@ -510,7 +521,6 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
 #mod-horas .h-subnote{font-size:11px;color:var(--gray);margin:0 0 10px;line-height:1.5}
 #mod-horas .h-loading{padding:50px 20px;text-align:center;font-family:'Barlow Condensed',sans-serif;
   color:var(--gray);font-size:14px;text-transform:uppercase}
-
 </style>
 </head>
 <body>
@@ -624,10 +634,10 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
 
         <label class="field-label">Tamaño del cilindro</label>
         <select id="sel-tamano" class="field-input">
-          <option value="40" selected>Cilindro 40 lb — $118.000</option>
-          <option value="20">Cilindro 20 lb — $65.000</option>
-          <option value="33">Cilindro 33 lb — $110.000</option>
-          <option value="100">Cilindro 100 lb — $285.000</option>
+          <option value="40" selected>Cilindro 40 lb — $129.000</option>
+          <option value="20">Cilindro 20 lb — $60.000</option>
+          <option value="33">Cilindro 33 lb — $116.500</option>
+          <option value="100">Cilindro 100 lb — $294.000</option>
         </select>
 
         <label class="field-label">Cantidad de cilindros</label>
@@ -640,9 +650,9 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
         <div class="precio-display">
           <div>
             <div class="precio-label" id="precio-label-txt">Cilindro 40 lb</div>
-            <div style="font-size:10px;opacity:0.5;margin-top:2px;" id="precio-unit-txt">$118.000 × 1</div>
+            <div style="font-size:10px;opacity:0.5;margin-top:2px;" id="precio-unit-txt">$129.000 × 1</div>
           </div>
-          <div class="precio-valor" id="precio-valor-txt">$118.000</div>
+          <div class="precio-valor" id="precio-valor-txt">$129.000</div>
         </div>
 
         <div id="campo-pago-prestamo" style="display:none">
@@ -1287,10 +1297,10 @@ window.GASTOS = {
 
 const TAMANOS  = ['20','33','40','100'];
 const PRECIOS  = {
-  '20':  { label:'Cilindro 20 lb',  precio:65000  },
-  '33':  { label:'Cilindro 33 lb',  precio:110000 },
-  '40':  { label:'Cilindro 40 lb',  precio:118000 },
-  '100': { label:'Cilindro 100 lb', precio:285000 }
+  '20':  { label:'Cilindro 20 lb',  precio:60000  },
+  '33':  { label:'Cilindro 33 lb',  precio:116500 },
+  '40':  { label:'Cilindro 40 lb',  precio:129000 },
+  '100': { label:'Cilindro 100 lb', precio:294000 }
 };
 
 // ─── STATE ────────────────────────────────────────────────────────────
@@ -1956,7 +1966,6 @@ window.GAS = {
 
 })();
 
-
 /* ═══════════════════════════════════════════════════════════════
    MÓDULO HORAS — control de horas semanal del equipo
    Guardado: colecciones horas_semanas / horas_config
@@ -1973,6 +1982,7 @@ window.GAS = {
    Festivos NO trabajados: no cuentan como horas debidas (CST art.177).  */
 
 const H_FESTIVOS_FIJOS = [
+  // [mes(1-12), día] — misma fecha cada año, no se trasladan
   [1,  1],  // Año Nuevo
   [5,  1],  // Día del Trabajo
   [7,  20], // Día de la Independencia
@@ -1981,6 +1991,8 @@ const H_FESTIVOS_FIJOS = [
   [12, 25], // Navidad
 ];
 
+// Festivos que se trasladan al lunes siguiente si no caen en lunes (Ley Emiliani)
+// [mes(1-12), día-base]
 const H_FESTIVOS_EMILIANI = [
   [1,  6],  // Reyes Magos
   [3,  19], // San José
@@ -1992,8 +2004,17 @@ const H_FESTIVOS_EMILIANI = [
   [11, 11], // Independencia de Cartagena
 ];
 
-const H_FESTIVOS_PASCUA = [ -3, -2, 39, 60, 68 ];
+// Festivos relativos a Pascua (calculados cada año)
+// offset en días desde el Domingo de Pascua
+const H_FESTIVOS_PASCUA = [
+  -3,  // Jueves Santo
+  -2,  // Viernes Santo
+  39,  // Ascensión (Pascua+39, trasladado al lunes)
+  60,  // Corpus Christi (trasladado al lunes)
+  68,  // Sagrado Corazón (trasladado al lunes)
+];
 
+// Algoritmo de Meeus/Jones/Butcher para calcular Pascua
 function hPascua(anio) {
   const a = anio % 19;
   const b = Math.floor(anio / 100);
@@ -2012,11 +2033,12 @@ function hPascua(anio) {
   return new Date(anio, mes - 1, dia);
 }
 
+// Primer lunes desde una fecha base (inclusive si ya es lunes)
 function hPrimerLunes(base) {
   const d = new Date(base);
   const w = d.getDay();
-  if (w === 1) return d;
-  d.setDate(d.getDate() + (w === 0 ? 1 : 8 - w));
+  if (w === 1) return d;                          // ya es lunes
+  d.setDate(d.getDate() + (w === 0 ? 1 : 8 - w)); // siguiente lunes
   return d;
 }
 
@@ -2026,18 +2048,29 @@ function hAddDias(d, n) {
   return r;
 }
 
+// Retorna Set de strings "YYYY-MM-DD" de todos los festivos del año
 function hFestivosDelAnio(anio) {
   const set = new Set();
   const add = (d) => set.add(hIsoDate(d));
+
+  // Fijos
   H_FESTIVOS_FIJOS.forEach(([mes, dia]) => add(new Date(anio, mes - 1, dia)));
+
+  // Emiliani: trasladar al primer lunes desde la fecha base
   H_FESTIVOS_EMILIANI.forEach(([mes, dia]) => add(hPrimerLunes(new Date(anio, mes - 1, dia))));
+
+  // Pascua y relativos
   const pascua = hPascua(anio);
+  // Jueves y Viernes Santo: fecha fija (nunca se trasladan)
   add(hAddDias(pascua, -3));
   add(hAddDias(pascua, -2));
+  // Los otros relativos a Pascua se trasladan al lunes
   [39, 60, 68].forEach(offset => add(hPrimerLunes(hAddDias(pascua, offset))));
+
   return set;
 }
 
+// Caché por año para no recalcular en cada render
 const hFestivosCache = {};
 function hEsFestivo(isoDate) {
   const anio = parseInt(isoDate.substring(0, 4));
@@ -2045,14 +2078,20 @@ function hEsFestivo(isoDate) {
   return hFestivosCache[anio].has(isoDate);
 }
 
+// Recargo vigente según la fecha ISO del lunes de la semana
 function hRecargo(isoDateLunes) {
   const anio = parseInt(isoDateLunes.substring(0, 4));
   const mes  = parseInt(isoDateLunes.substring(5, 7));
+  // Desde jul-2027: 100%
   if (anio > 2027 || (anio === 2027 && mes >= 7)) return 100;
+  // Desde jul-2026: 90%
   if (anio > 2026 || (anio === 2026 && mes >= 7)) return 90;
+  // Antes jul-2026: 80%
   return 80;
 }
 
+// Dado el día de la semana (0=Lunes..6=Domingo) y el lunes de la semana,
+// retorna la fecha ISO de ese día
 function hFechaDelDia(lunesisoDate, dayIndex) {
   const base = new Date(lunesisoDate + 'T00:00:00');
   base.setDate(base.getDate() + dayIndex);
@@ -2065,11 +2104,12 @@ const H_MESES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','no
 const H_MESES_L = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 const H_COL_SEM = 'horas_semanas';
 const H_COL_CFG = 'horas_config';
-const H_SAVE_DELAY = 700;
+const H_SAVE_DELAY = 700;   // ms: agrupa los cambios seguidos en una sola escritura
 const H_DEFAULT_CONFIG = {
   meta: 42, desayuno: 0.5,
   descansos: { Paola:4, Carlos:1, Lisbeth:2, 'César':1, Diego:1, Federico:1 }
 };
+// Horario del local por día (0=Lunes .. 6=Domingo)
 const H_STORE_HOURS = [
   ['07:00','18:00'],['07:00','18:00'],['07:00','18:00'],['07:00','18:00'],['07:00','18:00'],
   ['07:00','17:00'],['07:00','17:00']
@@ -2078,21 +2118,22 @@ const H_STORE_HOURS = [
 let hConfig = null;
 let hWeekMonday = hMondayOf(new Date());
 let hWeekData = null;
-let hWeekCache = {};
+let hWeekCache = {};        // claveSemana -> objeto semana (misma referencia que hWeekData)
 let hActiveTab = 'equipo';
 let hActiveEmployee = H_EMPLOYEES[0];
 let hSettingsOpen = false;
 let hMonthAnchor = hFirstOfMonth(new Date());
-let hMonthAgg = null;
+let hMonthAgg = null;       // resultado del mes ya calculado
 let hMonthAggKey = null;
 let hMonthLoading = false;
 let hCargado = false;
-let hUserNavigated = false;
-let hPending = {};
+let hUserNavigated = false; // el usuario cambió de semana a mano
+let hPending = {};          // "claveSemana|empleado" -> {timer, key, emp}
 let hSavingCount = 0;
-let hLastRefresh = 0;
+let hLastRefresh = 0;       // limita las relecturas al entrar al módulo
 const H_REFRESH_MS = 20000;
 
+/* ─── fechas ───────────────────────────────────────────────── */
 function hMondayOf(d){ const x=new Date(d); const w=x.getDay(); x.setDate(x.getDate()+((w===0?-6:1)-w)); x.setHours(0,0,0,0); return x; }
 function hFirstOfMonth(d){ return new Date(d.getFullYear(), d.getMonth(), 1); }
 function hIsoDate(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
@@ -2104,6 +2145,8 @@ function hMondaysInMonth(anchor){ const y=anchor.getFullYear(), mo=anchor.getMon
   const out=[]; for(let dd=1; dd<=days; dd++){ const dt=new Date(y,mo,dd); if(dt.getDay()===1) out.push(dt); } return out; }
 function hAddDays(d, n){ return hMondayOf(new Date(d.getFullYear(), d.getMonth(), d.getDate()+n)); }
 
+/* ─── utilidades ───────────────────────────────────────────── */
+// Acepta coma decimal (teclado colombiano): "2,5" -> 2.5
 function hNum(v, fallback){
   if(v===null || v===undefined) return fallback;
   const s = String(v).trim().replace(',', '.');
@@ -2116,6 +2159,7 @@ function hEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g
 function hMinutes(t){ const p=String(t||'').split(':'); if(p.length<2) return null;
   const hh=Number(p[0]), mm=Number(p[1]); if(!isFinite(hh)||!isFinite(mm)) return null; return hh*60+mm; }
 
+/* ─── modelo ───────────────────────────────────────────────── */
 function hEmptyWeek(){ const w={}; H_EMPLOYEES.forEach(e=>{ w[e]={}; H_DAYS.forEach(d=>{ w[e][d]={entrada:'',salida:'',abre:false}; }); }); return w; }
 function hFillWeek(partial){
   const base = hEmptyWeek();
@@ -2128,6 +2172,7 @@ function hFillWeek(partial){
 function hDescansos(emp){ return hNum(hConfig && hConfig.descansos ? hConfig.descansos[emp] : 0, 0); }
 
 function hCalcHoras(entrada, salida, descansos, abre, esFestivo){
+  // Si es festivo y el empleado no trabajó ese día, retorna null (no cuenta para la meta)
   if(esFestivo && !entrada && !salida) return null;
   const a = hMinutes(entrada), b = hMinutes(salida);
   if(a===null || b===null) return 0;
@@ -2139,15 +2184,20 @@ function hDayHoras(emp, day, dayIndex){
   const c = hWeekData[emp][day];
   const iso = dayIndex !== undefined ? hFechaDelDia(hWeekKey(hWeekMonday), dayIndex) : null;
   const fest = iso ? hEsFestivo(iso) : false;
-  return hCalcHoras(c.entrada, c.salida, hDescansos(emp), c.abre, fest);
+  const h = hCalcHoras(c.entrada, c.salida, hDescansos(emp), c.abre, fest);
+  return h;  // null = festivo no trabajado
 }
 
+// Avisos por día: detecta errores que antes quedaban en 0.0 h en silencio
 function hDayWarning(emp, day, dayIndex){
   const c = hWeekData[emp][day];
   const iso = dayIndex !== undefined ? hFechaDelDia(hWeekKey(hWeekMonday), dayIndex) : null;
   const fest = iso ? hEsFestivo(iso) : false;
   const a = hMinutes(c.entrada), b = hMinutes(c.salida);
-  if(a===null && b===null) return null;
+  if(a===null && b===null){
+    // Día sin marcar: si es festivo, mostrar badge (no aviso de error)
+    return null;
+  }
   if(a===null || b===null) return 'Falta la hora de ' + (a===null ? 'entrada' : 'salida') + '.';
   if(b <= a) return 'La salida no puede ser anterior o igual a la entrada.';
   const bruto = (b - a) / 60;
@@ -2169,6 +2219,7 @@ function hWeekTotals(wdata, emp, lunesisoDate){
     const fest = iso ? hEsFestivo(iso) : false;
     const hh = hCalcHoras(c.entrada, c.salida, desc, c.abre, fest);
     if(hh === null){
+      // Festivo no trabajado: no suma horas ni cuenta como día faltante
       festivosLibres++;
     } else {
       total += hh;
@@ -2176,7 +2227,10 @@ function hWeekTotals(wdata, emp, lunesisoDate){
       if(fest && hh > 0) festivosTrabajados++;
     }
   });
+  // Meta ajustada: (días laborables en la semana / 7 días normales) × meta
+  // o simplemente: meta - (festivosLibres/7)*meta
   const metaEfectiva = Math.max(0, meta * (7 - festivosLibres) / 7);
+  // Redondear a 2 decimales para evitar precisión flotante
   const metaEfectivaR = Math.round(metaEfectiva * 100) / 100;
   return { total, extra: Math.max(0, total - metaEfectivaR), dias, domingos, festivosLibres, festivosTrabajados, metaEfectiva: metaEfectivaR };
 }
@@ -2186,6 +2240,10 @@ function hEstadoFor(total, meta){
   return { label:'Cumple', cls:'cumple' };
 }
 
+/* ─── Firestore ────────────────────────────────────────────────
+   Se usa la API compat directa porque el adaptador setDoc() de la app
+   descarta el tercer argumento y {merge:true} no llegaría, lo que
+   sobreescribiría el documento completo de la semana.            */
 function hRefSemana(key){ return db.collection(H_COL_SEM).doc(String(key)); }
 function hRefConfig(){ return db.collection(H_COL_CFG).doc('main'); }
 
@@ -2223,6 +2281,7 @@ async function hFetchWeek(monday){
     return hEmptyWeek();
   }
 }
+// Con caché: el mes se recalcula sin volver a leer nada de la nube.
 async function hGetWeek(monday, forzar){
   const k = hWeekKey(monday);
   if(!forzar && hWeekCache[k]) return hWeekCache[k];
@@ -2231,6 +2290,11 @@ async function hGetWeek(monday, forzar){
   return wd;
 }
 
+/* ─── guardado: por empleado, agrupado y con merge ─────────────
+   - merge evita pisar los cambios que otro teléfono hizo a otro
+     empleado de la misma semana.
+   - la clave de la semana se captura al encolar, para no escribir
+     en la semana equivocada si el usuario navega mientras espera.  */
 function hPendKey(key, emp){ return key + '|' + emp; }
 
 function hQueueSave(emp){
@@ -2255,7 +2319,7 @@ async function hFlushOne(pk){
   }catch(e){
     console.error('horas: guardar semana', e);
     window.__toast && window.__toast('No se pudo guardar: ' + (e && e.message ? e.message : e), 'error');
-    hPending[pk] = { key:p.key, emp:p.emp, timer: setTimeout(()=>{ hFlushOne(pk); }, 4000) };
+    hPending[pk] = { key:p.key, emp:p.emp, timer: setTimeout(()=>{ hFlushOne(pk); }, 4000) }; // reintento
   }finally{
     hSavingCount--; hUpdateSaveState();
   }
@@ -2266,6 +2330,7 @@ async function hFlushAll(){
 }
 function hHasPending(){ return Object.keys(hPending).length > 0; }
 
+/* ─── render completo (solo en navegación, nunca al editar) ──── */
 function hGearIcon(){
   return '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
 }
@@ -2377,6 +2442,9 @@ function hSummaryHTML(){
     '<div class="h-chip '+est.cls+'" id="hSumChip">'+est.label+'</div></div>';
 }
 
+/* ─── ACTUALIZACIÓN QUIRÚRGICA ─────────────────────────────────
+   Se usa al editar: toca solo los números afectados y deja
+   intactos los <input>, para que el picker nativo no se cierre.  */
 function hTouchDay(day, dayIndex){
   const horasEl = document.querySelector('#horas-root [data-hhoras="'+day+'"]');
   if(horasEl){
@@ -2400,9 +2468,10 @@ function hTouchSummary(){
   if(mt) mt.textContent = 'Descansos ' + hDescansos(hActiveEmployee) + 'h/día · ' + t.dias + ' días trabajados';
   const chip = document.getElementById('hSumChip');
   if(chip){ chip.textContent = est.label; chip.className = 'h-chip ' + est.cls; }
-  hMonthAgg = null; hMonthAggKey = null;
+  hMonthAgg = null; hMonthAggKey = null;  // el mes se recalculará (sin lecturas nuevas)
 }
 
+/* ─── mes ──────────────────────────────────────────────────── */
 function hRenderMonth(){
   const key = hMonthAnchor.getFullYear()+'-'+hMonthAnchor.getMonth();
   if(hMonthLoading && hMonthAggKey !== key) return '<div class="h-loading">Sumando el mes…</div>';
@@ -2437,7 +2506,7 @@ async function hLoadMonth(){
   const mondays = hMondaysInMonth(hMonthAnchor);
   const agg = {}; H_EMPLOYEES.forEach(e=>{ agg[e] = { total:0, extra:0, dias:0, domingos:0, semanas:mondays.length }; });
   for(const m of mondays){
-    const wd = await hGetWeek(m);
+    const wd = await hGetWeek(m);   // usa caché: normalmente 0 lecturas nuevas
     H_EMPLOYEES.forEach(e=>{
       const t = hWeekTotals(wd, e, hIsoDate(m));
       agg[e].total += t.total; agg[e].extra += t.extra; agg[e].dias += t.dias; agg[e].domingos += t.domingos;
@@ -2448,7 +2517,11 @@ async function hLoadMonth(){
   if(hActiveTab === 'mes') hRender();
 }
 
+/* ─── ajustes ──────────────────────────────────────────────── */
 function hRenderSettings(){
+  // type="text" + inputmode="decimal": con type="number" el navegador descarta
+  // valores con coma ("2,5") y devuelve vacío, perdiendo el dato en silencio.
+  // El teclado español usa coma, así que se recibe el texto crudo y lo parsea hNum().
   let rows = '<div class="h-row"><label for="hCfgMeta">Meta semanal (h)</label>'+
     '<input id="hCfgMeta" type="text" inputmode="decimal" autocomplete="off" value="'+hNum(hConfig.meta,42)+'"></div>'+
     '<div class="h-row"><label for="hCfgDes">Desayuno de quien abre (h)</label>'+
@@ -2465,12 +2538,13 @@ function hRenderSettings(){
     rows+'<button type="button" class="h-close" id="hSaveSettings">Guardar y cerrar</button></div></div>';
 }
 
+/* ─── eventos ──────────────────────────────────────────────── */
 function hQ(sel){ return document.querySelectorAll('#mod-horas ' + sel); }
 
 function hBindEvents(){
   hQ('[data-htab]').forEach(b=>{
     b.onclick = async ()=>{
-      await hFlushAll();
+      await hFlushAll();                       // no dejar guardados a medias
       hActiveTab = b.dataset.htab;
       if(hActiveTab === 'mes') hLoadMonth(); else hRender();
     };
@@ -2514,6 +2588,7 @@ function hBindEvents(){
   const nm = document.getElementById('hNextMonth');
   if(nm) nm.onclick = ()=>{ hMonthAnchor = new Date(hMonthAnchor.getFullYear(), hMonthAnchor.getMonth()+1, 1); hLoadMonth(); };
 
+  // ── Campos de hora: SIN re-render. Solo actualización quirúrgica.
   hQ('input[type=time]').forEach(inp=>{
     const handler = ()=>{
       const day = inp.dataset.hday, kind = inp.dataset.hkind;
@@ -2522,7 +2597,7 @@ function hBindEvents(){
       hTouchDay(day, di >= 0 ? di : undefined);
       hQueueSave(hActiveEmployee);
     };
-    inp.oninput  = handler;
+    inp.oninput  = handler;   // iOS dispara input al girar la rueda
     inp.onchange = handler;
   });
 
@@ -2558,24 +2633,29 @@ function hBindEvents(){
 }
 
 async function hGoWeek(delta){
-  await hFlushAll();
+  await hFlushAll();                    // evita que el guardado caiga en la semana equivocada
   hUserNavigated = true;
   hWeekMonday = hAddDays(hWeekMonday, delta);
   hWeekData = await hGetWeek(hWeekMonday);
   hRender();
 }
 
+/* ─── sincronización / ciclo de vida ───────────────────────── */
+// Al volver al primer plano: guarda pendientes, corrige la semana si cambió el día
+// y refresca la semana actual para ver lo que otro teléfono haya escrito.
 async function hOnVisible(){
   if(!hCargado) return;
   await hFlushAll();
   const hoyLunes = hMondayOf(new Date());
+  // Si pasaron más de 2 semanas desde la semana visible, volver a hoy
+  // aunque el usuario haya navegado manualmente.
   const msDesde = hoyLunes - hWeekMonday;
   const semanasDesde = msDesde / (7 * 24 * 3600 * 1000);
   if(hWeekKey(hoyLunes) !== hWeekKey(hWeekMonday) && (!hUserNavigated || semanasDesde > 2)){
     hWeekMonday = hoyLunes;
     hUserNavigated = false;
   }
-  hWeekData = await hGetWeek(hWeekMonday, true);
+  hWeekData = await hGetWeek(hWeekMonday, true);   // 1 lectura, refresca entre teléfonos
   hLastRefresh = Date.now();
   hMonthAgg = null; hMonthAggKey = null;
   if(document.getElementById('mod-horas') && document.getElementById('mod-horas').classList.contains('active')){
@@ -2588,6 +2668,8 @@ document.addEventListener('visibilitychange', ()=>{
 });
 window.addEventListener('pagehide', ()=>{ hFlushAll(); });
 
+// Relee la semana actual solo si han pasado H_REFRESH_MS, para mantener los
+// teléfonos sincronizados sin gastar lecturas en cada toque de pestaña.
 function hMaybeRefresh(){
   if(hHasPending()) return;
   const now = Date.now();
@@ -2597,6 +2679,21 @@ function hMaybeRefresh(){
 
 window.HORAS = {
   init(){ /* usa la misma sesión que Gastos y Gas */ },
+  // Helpers expuestos solo para pruebas automatizadas
+  _test: {
+    esFestivo: (iso) => hEsFestivo(iso),
+    recargo: (iso) => hRecargo(iso),
+    calcHoras: (e,s,d,a,f) => hCalcHoras(e,s,d,a,f),
+    weekTotals: (wd,emp,lun) => hWeekTotals(wd,emp,lun),
+    dayWarning: (wd,emp,day,i,mon) => {
+      // Temporarily swap globals for the test
+      const origData = hWeekData, origMon = hWeekMonday;
+      hWeekData = wd; hWeekMonday = mon ? new Date(mon+'T00:00:00') : hWeekMonday;
+      const w = hDayWarning(emp, day, i);
+      hWeekData = origData; hWeekMonday = origMon;
+      return w;
+    },
+  },
   async reload(){
     hConfig = await hCargarConfig();
     hWeekData = await hGetWeek(hWeekMonday, true);
@@ -2608,7 +2705,7 @@ window.HORAS = {
   show(){
     if(!hCargado){ this.reload(); return; }
     if(hActiveTab === 'mes') hLoadMonth(); else hRender();
-    hMaybeRefresh();
+    hMaybeRefresh();   // relee solo si pasó el intervalo, para no gastar lecturas
   },
   summary(){
     const meta = hConfig ? hNum(hConfig.meta, 42) : 42;
