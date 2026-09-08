@@ -378,6 +378,139 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
 #mod-gastos .sync-line{font-size:11px;color:#a99f90;text-align:center;padding:7px 10px 0}
 #mod-gastos .modal{font-family:'Barlow',sans-serif}
 
+/* ═══════════════════ MÓDULO HORAS ═══════════════════ */
+#mod-horas{background:transparent}
+#mod-horas .content{max-width:600px;margin:0 auto;padding:0 16px calc(24px + var(--safe-bottom))}
+#mod-horas button{touch-action:manipulation}
+#mod-horas .h-sticky{position:sticky;top:calc(var(--header-h) + var(--safe-top));z-index:92;
+  background:var(--cream);padding:12px 0 8px;margin:0 -4px 4px;}
+#mod-horas .h-tabs{display:flex;background:var(--navy);border-radius:11px;padding:3px;gap:2px;
+  box-shadow:var(--shadow);margin:0 4px}
+#mod-horas .h-tabs button{flex:1;border:none;background:transparent;padding:11px 0;border-radius:9px;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:.02em;
+  color:#8FA3B5;cursor:pointer;text-transform:uppercase;min-height:44px}
+#mod-horas .h-tabs button.active{background:var(--orange);color:#fff}
+#mod-horas .h-weeknav{display:flex;align-items:center;justify-content:space-between;background:var(--white);
+  border-radius:12px;padding:8px 8px;margin-bottom:10px;box-shadow:var(--shadow);gap:6px}
+#mod-horas .h-weeknav .h-nav-btn{width:44px;height:44px;border-radius:10px;border:none;background:var(--gray-light);
+  font-size:19px;color:var(--orange);cursor:pointer;font-weight:700;line-height:1;flex:0 0 auto}
+#mod-horas .h-weeknav .h-nav-btn:active{opacity:.6}
+#mod-horas .h-weeknav .h-label{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14.5px;
+  text-align:center;color:var(--navy);flex:1;min-width:0;line-height:1.15}
+#mod-horas .h-weeknav .h-label small{display:block;color:var(--gray);font-size:10.5px;margin-top:3px;
+  font-weight:500;letter-spacing:.02em;font-family:'Barlow',sans-serif;text-transform:none}
+#mod-horas .h-weeknav .h-label small.dirty{color:var(--orange);font-weight:700}
+#mod-horas .h-weeknav .h-label small.saving{color:var(--blue);font-weight:600}
+#mod-horas .h-gear{width:44px;height:44px;border-radius:10px;border:none;background:var(--gray-light);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto}
+#mod-horas .h-gear svg{width:18px;height:18px;stroke:var(--navy);fill:none;stroke-width:1.8}
+#mod-horas .h-chip{display:inline-flex;align-items:center;gap:5px;font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-weight:700;padding:5px 10px 5px 9px;border-radius:20px;text-transform:uppercase}
+#mod-horas .h-chip::before{content:'';width:6px;height:6px;border-radius:50%;flex:0 0 auto}
+#mod-horas .h-chip.cumple{background:rgba(26,140,91,.14);color:var(--green)}
+#mod-horas .h-chip.cumple::before{background:var(--green)}
+#mod-horas .h-chip.faltan{background:rgba(192,57,43,.13);color:var(--red)}
+#mod-horas .h-chip.faltan::before{background:var(--red)}
+#mod-horas .h-chip.extra{background:rgba(26,95,168,.13);color:var(--blue)}
+#mod-horas .h-chip.extra::before{background:var(--blue)}
+#mod-horas .h-emp-card{background:var(--white);border-radius:14px;padding:14px 15px;margin-bottom:9px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;position:relative;
+  overflow:hidden;box-shadow:var(--shadow);min-height:44px;text-align:left;width:100%;border:none;font-family:inherit}
+#mod-horas .h-emp-card:active{transform:scale(.985)}
+#mod-horas .h-emp-card .h-tag{position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--orange)}
+#mod-horas .h-emp-card .h-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;
+  text-transform:uppercase;margin-bottom:6px;color:var(--navy)}
+#mod-horas .h-emp-card .h-num{font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--gray);
+  text-align:right;flex:0 0 auto}
+#mod-horas .h-emp-card .h-num b{color:var(--navy);font-size:17px;display:block;margin-bottom:1px;font-weight:800}
+#mod-horas .h-emp-select{display:flex;gap:7px;overflow-x:auto;padding:2px 0 6px;margin-bottom:10px;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none}
+#mod-horas .h-emp-select::-webkit-scrollbar{display:none}
+#mod-horas .h-emp-select button{flex:0 0 auto;font-family:'Barlow',sans-serif;font-weight:600;font-size:13.5px;
+  padding:10px 15px;border-radius:20px;border:none;background:var(--white);color:var(--gray);cursor:pointer;
+  white-space:nowrap;box-shadow:var(--shadow);min-height:44px}
+#mod-horas .h-emp-select button.active{background:var(--navy);color:#fff}
+#mod-horas .h-day-card{background:var(--white);border-radius:12px;margin-bottom:9px;padding:11px 14px 13px;
+  box-shadow:var(--shadow)}
+#mod-horas .h-day-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;gap:8px}
+#mod-horas .h-day-head .h-dname{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;
+  text-transform:uppercase;color:var(--navy)}
+#mod-horas .h-day-head .h-right{display:flex;align-items:center;gap:9px;flex:0 0 auto}
+#mod-horas .h-day-head .h-fill{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;
+  color:var(--orange);background:rgba(236,68,9,.1);border:none;border-radius:14px;padding:8px 11px;
+  cursor:pointer;letter-spacing:.02em;min-height:36px}
+#mod-horas .h-day-head .h-fill:active{opacity:.55}
+#mod-horas .h-day-head .h-horas{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800;
+  color:var(--navy);min-width:46px;text-align:right}
+#mod-horas .h-day-row{display:flex;gap:8px;align-items:flex-end}
+#mod-horas .h-field{flex:1;min-width:0}
+#mod-horas .h-field label{display:block;font-size:9.5px;color:var(--gray);font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;margin-bottom:4px;font-family:'Barlow',sans-serif}
+#mod-horas .h-field input[type=time]{width:100%;border:1px solid var(--gray-light);border-radius:8px;
+  padding:10px 8px;font-family:'Barlow',sans-serif;font-size:16px;background:var(--gray-light);
+  color:var(--navy);min-height:44px;-webkit-appearance:none;appearance:none}
+#mod-horas .h-field input[type=time]:focus{outline:none;border-color:var(--orange);background:var(--white)}
+#mod-horas .h-abre{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:5px}
+#mod-horas .h-abre span.h-abre-lbl{font-size:9.5px;color:var(--gray);font-weight:700;letter-spacing:.03em;
+  text-transform:uppercase;font-family:'Barlow',sans-serif}
+#mod-horas .h-sw{width:48px;height:30px;border-radius:20px;background:var(--gray-light);position:relative;
+  cursor:pointer;-webkit-user-select:none;user-select:none;flex:0 0 auto}
+#mod-horas .h-sw .h-knob{position:absolute;top:2px;left:2px;width:26px;height:26px;border-radius:50%;
+  background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .15s ease}
+#mod-horas .h-sw.on{background:var(--orange)}
+#mod-horas .h-sw.on .h-knob{left:20px}
+#mod-horas .h-warn{margin-top:8px;font-size:11px;color:var(--red);font-weight:600;display:flex;
+  align-items:center;gap:5px;line-height:1.35}
+#mod-horas .h-summary{background:var(--navy);color:#fff;border-radius:14px;padding:16px 18px;margin-top:10px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:var(--shadow)}
+#mod-horas .h-summary .h-big{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;line-height:1}
+#mod-horas .h-summary .h-big span{font-size:15px;font-weight:600;opacity:.55;margin-left:3px}
+#mod-horas .h-summary .h-meta{font-family:'Barlow',sans-serif;font-size:10.5px;opacity:.65;margin-top:5px}
+#mod-horas .h-month-band{background:var(--white);border-radius:12px;padding:13px 15px;margin-bottom:12px;
+  display:flex;justify-content:space-between;align-items:center;gap:10px;box-shadow:var(--shadow)}
+#mod-horas .h-month-band .h-mtot{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;
+  text-transform:uppercase;color:var(--navy)}
+#mod-horas .h-month-band .h-mnum{font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--gray);text-align:right}
+#mod-horas .h-month-band .h-mnum b{color:var(--navy)}
+#mod-horas .h-mrow{background:var(--white);border-radius:12px;padding:12px 14px;margin-bottom:9px;box-shadow:var(--shadow)}
+#mod-horas .h-mrow .h-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;gap:8px}
+#mod-horas .h-mrow .h-mname{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;
+  text-transform:uppercase;color:var(--navy)}
+#mod-horas .h-mrow .h-mhoras{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;color:var(--navy)}
+#mod-horas .h-mrow .h-mhoras small{font-size:10px;color:var(--gray);font-weight:500;text-transform:none}
+#mod-horas .h-stats{display:flex;gap:7px;flex-wrap:wrap}
+#mod-horas .h-pill{font-family:'Barlow Condensed',sans-serif;font-size:10.5px;font-weight:600;padding:4px 9px;
+  border-radius:14px;background:var(--gray-light);color:var(--gray);text-transform:uppercase}
+#mod-horas .h-pill.ex{background:rgba(26,95,168,.13);color:var(--blue)}
+#mod-horas .h-pill.dom{background:rgba(236,68,9,.1);color:var(--orange-2)}
+#mod-horas .h-pill.fest{background:rgba(44,62,80,.12);color:var(--navy);font-weight:700}
+#mod-horas .h-fest-badge{display:inline-block;font-size:10px;font-weight:700;font-family:'Barlow Condensed',sans-serif;
+  background:rgba(44,62,80,.12);color:var(--navy);padding:2px 7px;border-radius:12px;letter-spacing:.03em;vertical-align:middle;margin-left:6px}
+#mod-horas .h-warn.festivo{color:var(--blue);background:rgba(26,95,168,.08);border-radius:8px;padding:6px 10px}
+#mod-horas .h-note{font-size:11px;color:var(--gray);line-height:1.5;background:var(--gray-light);
+  border-radius:10px;padding:11px 13px;margin-top:10px}
+#mod-horas .h-note b{color:var(--navy)}
+#mod-horas .h-overlay{position:fixed;inset:0;background:rgba(14,39,60,.6);z-index:500;display:flex;
+  align-items:flex-end;justify-content:center}
+#mod-horas .h-modal{background:var(--white);width:100%;max-width:520px;border-radius:18px 18px 0 0;
+  padding:20px 18px calc(24px + var(--safe-bottom));max-height:85vh;max-height:85dvh;overflow-y:auto;
+  -webkit-overflow-scrolling:touch}
+#mod-horas .h-modal h3{font-family:'Barlow Condensed',sans-serif;font-size:21px;text-transform:uppercase;
+  color:var(--navy);margin:0 0 12px}
+#mod-horas .h-modal .h-row{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:9px 0;border-bottom:1px solid var(--gray-light)}
+#mod-horas .h-modal .h-row:last-of-type{border-bottom:none}
+#mod-horas .h-modal .h-row label{font-size:13.5px;font-weight:600;color:var(--navy);flex:1}
+#mod-horas .h-modal .h-row input{width:78px;flex:0 0 auto;text-align:center;border:1px solid var(--gray-light);
+  border-radius:8px;padding:10px 4px;font-family:'Barlow',sans-serif;font-size:16px;background:var(--gray-light);
+  color:var(--navy);min-height:44px}
+#mod-horas .h-modal .h-close{width:100%;margin-top:16px;padding:14px;border:none;border-radius:10px;
+  background:var(--orange);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;
+  text-transform:uppercase;letter-spacing:.03em;cursor:pointer;min-height:48px}
+#mod-horas .h-subnote{font-size:11px;color:var(--gray);margin:0 0 10px;line-height:1.5}
+#mod-horas .h-loading{padding:50px 20px;text-align:center;font-family:'Barlow Condensed',sans-serif;
+  color:var(--gray);font-size:14px;text-transform:uppercase}
+
 </style>
 </head>
 <body>
@@ -632,6 +765,11 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
 
     </section>
 
+    <!-- ── HORAS ── -->
+    <section class="module" id="mod-horas">
+      <div id="horas-root"></div>
+    </section>
+
   </main>
 
   <nav id="bottomNav">
@@ -644,6 +782,9 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
     </button>
     <button class="nav-item" data-mod="gas">
       <span class="ni-ico">🔥</span><span class="ni-lbl">Gas</span>
+    </button>
+    <button class="nav-item" data-mod="horas">
+      <span class="ni-ico">⏱️</span><span class="ni-lbl">Horas</span>
     </button>
   </nav>
 
@@ -1816,6 +1957,670 @@ window.GAS = {
 })();
 
 
+/* ═══════════════════════════════════════════════════════════════
+   MÓDULO HORAS — control de horas semanal del equipo
+   Guardado: colecciones horas_semanas / horas_config
+   Nota de diseño: durante la edición NUNCA se re-renderiza el DOM.
+   El selector de hora nativo (iOS/Android) está anclado al <input>;
+   si se recrea el DOM, el picker se cierra solo.
+   ═══════════════════════════════════════════════════════════════ */
+(function(){
+'use strict';
+
+/* ─── FESTIVOS COLOMBIA ────────────────────────────────────────────
+   Fuente: Ley 51/1983 (Ley Emiliani) + Ley 2578/2026 (Chiquinquirá)
+   Recargo: 90% desde jul-2026 (Ley 2466/2025), 100% desde jul-2027.
+   Festivos NO trabajados: no cuentan como horas debidas (CST art.177).  */
+
+const H_FESTIVOS_FIJOS = [
+  [1,  1],  // Año Nuevo
+  [5,  1],  // Día del Trabajo
+  [7,  20], // Día de la Independencia
+  [8,  7],  // Batalla de Boyacá
+  [12, 8],  // Inmaculada Concepción
+  [12, 25], // Navidad
+];
+
+const H_FESTIVOS_EMILIANI = [
+  [1,  6],  // Reyes Magos
+  [3,  19], // San José
+  [6,  29], // San Pedro y San Pablo
+  [7,  9],  // Virgen de Chiquinquirá (Ley 2578/2026)
+  [8,  15], // Asunción de la Virgen
+  [10, 12], // Día de la Raza / Diversidad Étnica
+  [11, 1],  // Todos los Santos
+  [11, 11], // Independencia de Cartagena
+];
+
+const H_FESTIVOS_PASCUA = [ -3, -2, 39, 60, 68 ];
+
+function hPascua(anio) {
+  const a = anio % 19;
+  const b = Math.floor(anio / 100);
+  const c = anio % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const mes = Math.floor((h + l - 7 * m + 114) / 31);
+  const dia = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(anio, mes - 1, dia);
+}
+
+function hPrimerLunes(base) {
+  const d = new Date(base);
+  const w = d.getDay();
+  if (w === 1) return d;
+  d.setDate(d.getDate() + (w === 0 ? 1 : 8 - w));
+  return d;
+}
+
+function hAddDias(d, n) {
+  const r = new Date(d);
+  r.setDate(r.getDate() + n);
+  return r;
+}
+
+function hFestivosDelAnio(anio) {
+  const set = new Set();
+  const add = (d) => set.add(hIsoDate(d));
+  H_FESTIVOS_FIJOS.forEach(([mes, dia]) => add(new Date(anio, mes - 1, dia)));
+  H_FESTIVOS_EMILIANI.forEach(([mes, dia]) => add(hPrimerLunes(new Date(anio, mes - 1, dia))));
+  const pascua = hPascua(anio);
+  add(hAddDias(pascua, -3));
+  add(hAddDias(pascua, -2));
+  [39, 60, 68].forEach(offset => add(hPrimerLunes(hAddDias(pascua, offset))));
+  return set;
+}
+
+const hFestivosCache = {};
+function hEsFestivo(isoDate) {
+  const anio = parseInt(isoDate.substring(0, 4));
+  if (!hFestivosCache[anio]) hFestivosCache[anio] = hFestivosDelAnio(anio);
+  return hFestivosCache[anio].has(isoDate);
+}
+
+function hRecargo(isoDateLunes) {
+  const anio = parseInt(isoDateLunes.substring(0, 4));
+  const mes  = parseInt(isoDateLunes.substring(5, 7));
+  if (anio > 2027 || (anio === 2027 && mes >= 7)) return 100;
+  if (anio > 2026 || (anio === 2026 && mes >= 7)) return 90;
+  return 80;
+}
+
+function hFechaDelDia(lunesisoDate, dayIndex) {
+  const base = new Date(lunesisoDate + 'T00:00:00');
+  base.setDate(base.getDate() + dayIndex);
+  return hIsoDate(base);
+}
+
+const H_EMPLOYEES = ['Paola','Carlos','Lisbeth','César','Diego','Federico'];
+const H_DAYS = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+const H_MESES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const H_MESES_L = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const H_COL_SEM = 'horas_semanas';
+const H_COL_CFG = 'horas_config';
+const H_SAVE_DELAY = 700;
+const H_DEFAULT_CONFIG = {
+  meta: 42, desayuno: 0.5,
+  descansos: { Paola:4, Carlos:1, Lisbeth:2, 'César':1, Diego:1, Federico:1 }
+};
+const H_STORE_HOURS = [
+  ['07:00','18:00'],['07:00','18:00'],['07:00','18:00'],['07:00','18:00'],['07:00','18:00'],
+  ['07:00','17:00'],['07:00','17:00']
+];
+
+let hConfig = null;
+let hWeekMonday = hMondayOf(new Date());
+let hWeekData = null;
+let hWeekCache = {};
+let hActiveTab = 'equipo';
+let hActiveEmployee = H_EMPLOYEES[0];
+let hSettingsOpen = false;
+let hMonthAnchor = hFirstOfMonth(new Date());
+let hMonthAgg = null;
+let hMonthAggKey = null;
+let hMonthLoading = false;
+let hCargado = false;
+let hUserNavigated = false;
+let hPending = {};
+let hSavingCount = 0;
+let hLastRefresh = 0;
+const H_REFRESH_MS = 20000;
+
+function hMondayOf(d){ const x=new Date(d); const w=x.getDay(); x.setDate(x.getDate()+((w===0?-6:1)-w)); x.setHours(0,0,0,0); return x; }
+function hFirstOfMonth(d){ return new Date(d.getFullYear(), d.getMonth(), 1); }
+function hIsoDate(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function hWeekKey(d){ return hIsoDate(d); }
+function hFmtShort(d){ return d.getDate()+' '+H_MESES[d.getMonth()]; }
+function hWeekLabel(m){ const s=new Date(m); s.setDate(s.getDate()+6); const sm=m.getMonth()===s.getMonth();
+  return { main: hFmtShort(m)+' – '+(sm ? s.getDate()+' '+H_MESES[s.getMonth()] : hFmtShort(s)), year: s.getFullYear() }; }
+function hMondaysInMonth(anchor){ const y=anchor.getFullYear(), mo=anchor.getMonth(); const days=new Date(y,mo+1,0).getDate();
+  const out=[]; for(let dd=1; dd<=days; dd++){ const dt=new Date(y,mo,dd); if(dt.getDay()===1) out.push(dt); } return out; }
+function hAddDays(d, n){ return hMondayOf(new Date(d.getFullYear(), d.getMonth(), d.getDate()+n)); }
+
+function hNum(v, fallback){
+  if(v===null || v===undefined) return fallback;
+  const s = String(v).trim().replace(',', '.');
+  if(s === '') return fallback;
+  const n = parseFloat(s);
+  return isFinite(n) ? n : fallback;
+}
+function hClamp(n, lo, hi){ return Math.min(hi, Math.max(lo, n)); }
+function hEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function hMinutes(t){ const p=String(t||'').split(':'); if(p.length<2) return null;
+  const hh=Number(p[0]), mm=Number(p[1]); if(!isFinite(hh)||!isFinite(mm)) return null; return hh*60+mm; }
+
+function hEmptyWeek(){ const w={}; H_EMPLOYEES.forEach(e=>{ w[e]={}; H_DAYS.forEach(d=>{ w[e][d]={entrada:'',salida:'',abre:false}; }); }); return w; }
+function hFillWeek(partial){
+  const base = hEmptyWeek();
+  if(partial){ H_EMPLOYEES.forEach(e=>{ H_DAYS.forEach(d=>{
+    const c = partial[e] && partial[e][d];
+    if(c) base[e][d] = { entrada: c.entrada||'', salida: c.salida||'', abre: !!c.abre };
+  });}); }
+  return base;
+}
+function hDescansos(emp){ return hNum(hConfig && hConfig.descansos ? hConfig.descansos[emp] : 0, 0); }
+
+function hCalcHoras(entrada, salida, descansos, abre, esFestivo){
+  if(esFestivo && !entrada && !salida) return null;
+  const a = hMinutes(entrada), b = hMinutes(salida);
+  if(a===null || b===null) return 0;
+  let bruto = (b - a) / 60;
+  if(bruto <= 0) return 0;
+  return Math.max(0, bruto - (descansos||0) - (abre ? hNum(hConfig.desayuno,0) : 0));
+}
+function hDayHoras(emp, day, dayIndex){
+  const c = hWeekData[emp][day];
+  const iso = dayIndex !== undefined ? hFechaDelDia(hWeekKey(hWeekMonday), dayIndex) : null;
+  const fest = iso ? hEsFestivo(iso) : false;
+  return hCalcHoras(c.entrada, c.salida, hDescansos(emp), c.abre, fest);
+}
+
+function hDayWarning(emp, day, dayIndex){
+  const c = hWeekData[emp][day];
+  const iso = dayIndex !== undefined ? hFechaDelDia(hWeekKey(hWeekMonday), dayIndex) : null;
+  const fest = iso ? hEsFestivo(iso) : false;
+  const a = hMinutes(c.entrada), b = hMinutes(c.salida);
+  if(a===null && b===null) return null;
+  if(a===null || b===null) return 'Falta la hora de ' + (a===null ? 'entrada' : 'salida') + '.';
+  if(b <= a) return 'La salida no puede ser anterior o igual a la entrada.';
+  const bruto = (b - a) / 60;
+  const resta = hDescansos(emp) + (c.abre ? hNum(hConfig.desayuno,0) : 0);
+  if(bruto - resta <= 0) return 'Los descansos ('+resta.toFixed(1)+'h) se llevan todo el turno.';
+  if(fest){
+    const rec = hRecargo(hWeekKey(hWeekMonday));
+    return '🏛️ Festivo trabajado — recargo ' + rec + '% sobre la hora ordinaria (Ley 2466/2025).';
+  }
+  return null;
+}
+function hWeekTotals(wdata, emp, lunesisoDate){
+  let total=0, dias=0, domingos=0, festivosLibres=0, festivosTrabajados=0;
+  const desc = hDescansos(emp);
+  const meta = hNum(hConfig.meta, 42);
+  H_DAYS.forEach((d,i)=>{
+    const c = wdata[emp][d];
+    const iso = lunesisoDate ? hFechaDelDia(lunesisoDate, i) : null;
+    const fest = iso ? hEsFestivo(iso) : false;
+    const hh = hCalcHoras(c.entrada, c.salida, desc, c.abre, fest);
+    if(hh === null){
+      festivosLibres++;
+    } else {
+      total += hh;
+      if(hh > 0){ dias++; if(i === 6) domingos++; }
+      if(fest && hh > 0) festivosTrabajados++;
+    }
+  });
+  const metaEfectiva = Math.max(0, meta * (7 - festivosLibres) / 7);
+  const metaEfectivaR = Math.round(metaEfectiva * 100) / 100;
+  return { total, extra: Math.max(0, total - metaEfectivaR), dias, domingos, festivosLibres, festivosTrabajados, metaEfectiva: metaEfectivaR };
+}
+function hEstadoFor(total, meta){
+  if(total > meta+0.001) return { label:'Horas extra: '+(total-meta).toFixed(1)+'h', cls:'extra' };
+  if(total < meta-0.001) return { label:'Faltan '+(meta-total).toFixed(1)+'h', cls:'faltan' };
+  return { label:'Cumple', cls:'cumple' };
+}
+
+function hRefSemana(key){ return db.collection(H_COL_SEM).doc(String(key)); }
+function hRefConfig(){ return db.collection(H_COL_CFG).doc('main'); }
+
+async function hCargarConfig(){
+  const merged = JSON.parse(JSON.stringify(H_DEFAULT_CONFIG));
+  try{
+    const snap = await hRefConfig().get();
+    if(snap.exists){
+      const c = snap.data() || {};
+      if(isFinite(hNum(c.meta, NaN))) merged.meta = hNum(c.meta, merged.meta);
+      if(isFinite(hNum(c.desayuno, NaN))) merged.desayuno = hNum(c.desayuno, merged.desayuno);
+      H_EMPLOYEES.forEach(e=>{
+        if(c.descansos && isFinite(hNum(c.descansos[e], NaN))) merged.descansos[e] = hNum(c.descansos[e], merged.descansos[e]);
+      });
+    }
+  }catch(e){ console.error('horas: leer config', e); }
+  return merged;
+}
+async function hGuardarConfig(){
+  try{
+    await hRefConfig().set(hConfig, { merge:true });
+    window.__toast && window.__toast('Ajustes guardados', 'success');
+  }catch(e){
+    console.error('horas: guardar config', e);
+    window.__toast && window.__toast('No se pudieron guardar los ajustes: ' + (e && e.message ? e.message : e), 'error');
+  }
+}
+async function hFetchWeek(monday){
+  try{
+    const snap = await hRefSemana(hWeekKey(monday)).get();
+    return hFillWeek(snap.exists ? snap.data() : null);
+  }catch(e){
+    console.error('horas: leer semana', e);
+    window.__toast && window.__toast('No se pudo leer la semana: ' + (e && e.message ? e.message : e), 'error');
+    return hEmptyWeek();
+  }
+}
+async function hGetWeek(monday, forzar){
+  const k = hWeekKey(monday);
+  if(!forzar && hWeekCache[k]) return hWeekCache[k];
+  const wd = await hFetchWeek(monday);
+  hWeekCache[k] = wd;
+  return wd;
+}
+
+function hPendKey(key, emp){ return key + '|' + emp; }
+
+function hQueueSave(emp){
+  const key = hWeekKey(hWeekMonday);
+  const pk = hPendKey(key, emp);
+  const prev = hPending[pk];
+  if(prev) clearTimeout(prev.timer);
+  hPending[pk] = { key, emp, timer: setTimeout(()=>{ hFlushOne(pk); }, H_SAVE_DELAY) };
+  hUpdateSaveState();
+}
+async function hFlushOne(pk){
+  const p = hPending[pk];
+  if(!p) return;
+  clearTimeout(p.timer);
+  delete hPending[pk];
+  const week = hWeekCache[p.key];
+  if(!week){ hUpdateSaveState(); return; }
+  const payload = {}; payload[p.emp] = week[p.emp];
+  hSavingCount++; hUpdateSaveState();
+  try{
+    await hRefSemana(p.key).set(payload, { merge:true });
+  }catch(e){
+    console.error('horas: guardar semana', e);
+    window.__toast && window.__toast('No se pudo guardar: ' + (e && e.message ? e.message : e), 'error');
+    hPending[pk] = { key:p.key, emp:p.emp, timer: setTimeout(()=>{ hFlushOne(pk); }, 4000) };
+  }finally{
+    hSavingCount--; hUpdateSaveState();
+  }
+}
+async function hFlushAll(){
+  const keys = Object.keys(hPending);
+  await Promise.all(keys.map(pk=>hFlushOne(pk)));
+}
+function hHasPending(){ return Object.keys(hPending).length > 0; }
+
+function hGearIcon(){
+  return '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
+}
+function hSaveStateHTML(){
+  if(hSavingCount > 0) return '<small class="saving" id="hSaveState">Guardando…</small>';
+  if(hHasPending())    return '<small class="dirty" id="hSaveState">Sin guardar…</small>';
+  return '<small id="hSaveState">Lunes a Domingo</small>';
+}
+function hUpdateSaveState(){
+  const el = document.getElementById('hSaveState');
+  if(!el) return;
+  if(hSavingCount > 0){ el.textContent='Guardando…'; el.className='saving'; }
+  else if(hHasPending()){ el.textContent='Sin guardar…'; el.className='dirty'; }
+  else { el.textContent='Lunes a Domingo'; el.className=''; }
+}
+
+function hRender(){
+  const root = document.getElementById('horas-root');
+  if(!root) return;
+  let html = '<div class="content">'+
+    '<div class="h-sticky"><div class="h-tabs">'+
+    '<button type="button" data-htab="equipo" class="'+(hActiveTab==='equipo'?'active':'')+'">Equipo</button>'+
+    '<button type="button" data-htab="detalle" class="'+(hActiveTab==='detalle'?'active':'')+'">Detalle</button>'+
+    '<button type="button" data-htab="mes" class="'+(hActiveTab==='mes'?'active':'')+'">Mes</button>'+
+    '</div></div>';
+  if(hActiveTab === 'mes') html += hRenderMonthNav() + hRenderMonth();
+  else html += hRenderWeekNav() + (hActiveTab==='equipo' ? hRenderEquipo() : hRenderDetalle());
+  html += '</div>';
+  if(hSettingsOpen) html += hRenderSettings();
+  root.innerHTML = html;
+  hBindEvents();
+}
+
+function hRenderWeekNav(){
+  const wl = hWeekLabel(hWeekMonday);
+  return '<div class="h-weeknav">'+
+    '<button type="button" class="h-nav-btn" id="hPrevWeek" aria-label="Semana anterior">‹</button>'+
+    '<div class="h-label">'+hEsc(wl.main)+' <span style="opacity:.5">'+wl.year+'</span>'+hSaveStateHTML()+'</div>'+
+    '<button type="button" class="h-nav-btn" id="hNextWeek" aria-label="Semana siguiente">›</button>'+
+    '<button type="button" class="h-gear" id="hGearBtn" aria-label="Ajustes">'+hGearIcon()+'</button></div>';
+}
+function hRenderMonthNav(){
+  return '<div class="h-weeknav">'+
+    '<button type="button" class="h-nav-btn" id="hPrevMonth" aria-label="Mes anterior">‹</button>'+
+    '<div class="h-label">'+H_MESES_L[hMonthAnchor.getMonth()]+' '+hMonthAnchor.getFullYear()+
+    '<small>Semanas que inician en el mes</small></div>'+
+    '<button type="button" class="h-nav-btn" id="hNextMonth" aria-label="Mes siguiente">›</button>'+
+    '<button type="button" class="h-gear" id="hGearBtn2" aria-label="Ajustes">'+hGearIcon()+'</button></div>';
+}
+
+function hRenderEquipo(){
+  const wk = hWeekKey(hWeekMonday);
+  let out = '';
+  H_EMPLOYEES.forEach(emp=>{
+    const t = hWeekTotals(hWeekData, emp, wk);
+    const est = hEstadoFor(t.total, t.metaEfectiva);
+    const metaLbl = t.metaEfectiva.toFixed(1) + (t.festivosLibres > 0 ? 'h*' : 'h');
+    out += '<button type="button" class="h-emp-card" data-hemp="'+hEsc(emp)+'"><span class="h-tag"></span>'+
+      '<span><span class="h-name">'+hEsc(emp)+'</span><span class="h-chip '+est.cls+'">'+est.label+'</span></span>'+
+      '<span class="h-num"><b>'+t.total.toFixed(1)+'h</b>meta '+metaLbl+'</span></button>';
+  });
+  return out;
+}
+
+function hDayCardInner(emp, day, i){
+  const c = hWeekData[emp][day];
+  const isoDay = hFechaDelDia(hWeekKey(hWeekMonday), i);
+  const fest = hEsFestivo(isoDay);
+  const horas = hDayHoras(emp, day, i);
+  const warn = hDayWarning(emp, day, i);
+  const horasLabel = horas === null ? '— h' : horas.toFixed(1) + ' h';
+  const idE = 'h-in-'+i+'-e', idS = 'h-in-'+i+'-s';
+  const festBadge = fest ? '<span class="h-fest-badge">🏛️ Festivo</span>' : '';
+  return '<div class="h-day-head"><span class="h-dname">'+day+' '+festBadge+'</span>'+
+    '<span class="h-right"><button type="button" class="h-fill" data-hfillday="'+i+'">Tienda</button>'+
+    '<span class="h-horas" data-hhoras="'+day+'">'+horasLabel+'</span></span></div>'+
+    '<div class="h-day-row">'+
+    '<div class="h-field"><label for="'+idE+'">Entrada</label>'+
+      '<input type="time" id="'+idE+'" data-hday="'+day+'" data-hkind="entrada" value="'+hEsc(c.entrada)+'" step="60"></div>'+
+    '<div class="h-field"><label for="'+idS+'">Salida</label>'+
+      '<input type="time" id="'+idS+'" data-hday="'+day+'" data-hkind="salida" value="'+hEsc(c.salida)+'" step="60"></div>'+
+    '<div class="h-abre"><span class="h-abre-lbl">Abre</span>'+
+      '<div class="h-sw '+(c.abre?'on':'')+'" data-hday="'+day+'" role="switch" tabindex="0" '+
+      'aria-checked="'+(c.abre?'true':'false')+'" aria-label="Abrió el local el '+day+'"><div class="h-knob"></div></div></div>'+
+    '</div>'+
+    '<div class="h-warn'+(warn && warn.includes('🏛️') ? ' festivo' : '')+'" data-hwarn="'+day+'" style="'+(warn?'':'display:none')+'">'+(warn?'⚠️ '+warn:'')+'</div>';
+}
+
+function hRenderDetalle(){
+  let out = '<div class="h-emp-select">';
+  H_EMPLOYEES.forEach(emp=>{
+    out += '<button type="button" data-hselemp="'+hEsc(emp)+'" class="'+(emp===hActiveEmployee?'active':'')+'">'+hEsc(emp)+'</button>';
+  });
+  out += '</div>';
+  H_DAYS.forEach((day, i)=>{
+    out += '<div class="h-day-card" data-hdaycard="'+day+'">'+hDayCardInner(hActiveEmployee, day, i)+'</div>';
+  });
+  out += hSummaryHTML();
+  return out;
+}
+function hSummaryHTML(){
+  const t = hWeekTotals(hWeekData, hActiveEmployee, hWeekKey(hWeekMonday));
+  const est = hEstadoFor(t.total, t.metaEfectiva);
+  const metaLbl = t.festivosLibres > 0 ? t.metaEfectiva.toFixed(1)+'h*' : t.metaEfectiva.toFixed(1)+'h';
+  const festNote = t.festivosLibres > 0 ? ' · '+t.festivosLibres+' festivo'+(t.festivosLibres>1?'s':'')+' libre'+(t.festivosLibres>1?'s':'') : '';
+  return '<div class="h-summary" id="hSummary">'+
+    '<div><div class="h-big" id="hSumTotal">'+t.total.toFixed(1)+'<span>/ '+metaLbl+'</span></div>'+
+    '<div class="h-meta" id="hSumMeta">Descansos '+hDescansos(hActiveEmployee)+'h/día · '+t.dias+' días trabajados'+festNote+'</div></div>'+
+    '<div class="h-chip '+est.cls+'" id="hSumChip">'+est.label+'</div></div>';
+}
+
+function hTouchDay(day, dayIndex){
+  const horasEl = document.querySelector('#horas-root [data-hhoras="'+day+'"]');
+  if(horasEl){
+    const h = hDayHoras(hActiveEmployee, day, dayIndex);
+    horasEl.textContent = h === null ? '— h' : h.toFixed(1) + ' h';
+  }
+  const warnEl = document.querySelector('#horas-root [data-hwarn="'+day+'"]');
+  if(warnEl){
+    const w = hDayWarning(hActiveEmployee, day, dayIndex);
+    if(w){ warnEl.textContent = '⚠️ ' + w; warnEl.style.display = ''; }
+    else { warnEl.textContent = ''; warnEl.style.display = 'none'; }
+  }
+  hTouchSummary();
+}
+function hTouchSummary(){
+  const t = hWeekTotals(hWeekData, hActiveEmployee, hWeekKey(hWeekMonday));
+  const est = hEstadoFor(t.total, t.metaEfectiva);
+  const tot = document.getElementById('hSumTotal');
+  if(tot) tot.innerHTML = t.total.toFixed(1) + '<span>/ ' + t.metaEfectiva.toFixed(1) + (t.festivosLibres > 0 ? 'h*' : 'h') + '</span>';
+  const mt = document.getElementById('hSumMeta');
+  if(mt) mt.textContent = 'Descansos ' + hDescansos(hActiveEmployee) + 'h/día · ' + t.dias + ' días trabajados';
+  const chip = document.getElementById('hSumChip');
+  if(chip){ chip.textContent = est.label; chip.className = 'h-chip ' + est.cls; }
+  hMonthAgg = null; hMonthAggKey = null;
+}
+
+function hRenderMonth(){
+  const key = hMonthAnchor.getFullYear()+'-'+hMonthAnchor.getMonth();
+  if(hMonthLoading && hMonthAggKey !== key) return '<div class="h-loading">Sumando el mes…</div>';
+  if(hMonthAggKey !== key || !hMonthAgg) return '<div class="h-loading">Cargando mes…</div>';
+  const agg = hMonthAgg;
+  const meta = hNum(hConfig.meta, 42);
+  let teamTotal=0, teamExtra=0;
+  H_EMPLOYEES.forEach(e=>{ teamTotal+=agg[e].total; teamExtra+=agg[e].extra; });
+  let out = '<div class="h-month-band"><div class="h-mtot">Total equipo</div>'+
+    '<div class="h-mnum"><b>'+teamTotal.toFixed(1)+' h</b> · '+teamExtra.toFixed(1)+' h extra</div></div>';
+  H_EMPLOYEES.forEach(emp=>{
+    const a = agg[emp];
+    out += '<div class="h-mrow"><div class="h-top"><span class="h-mname">'+hEsc(emp)+'</span>'+
+      '<span class="h-mhoras">'+a.total.toFixed(1)+' <small>h</small></span></div>'+
+      '<div class="h-stats">'+
+      '<span class="h-pill ex">'+a.extra.toFixed(1)+' h extra</span>'+
+      '<span class="h-pill">'+a.dias+' días</span>'+
+      '<span class="h-pill dom">'+a.domingos+' domingos</span>'+
+      (a.festivosTrabajados ? '<span class="h-pill fest">'+a.festivosTrabajados+' fest.</span>' : '')+
+      '<span class="h-pill">'+a.semanas+' semanas</span>'+
+      '</div></div>';
+  });
+  out += '<div class="h-note"><b>Nota:</b> "Extra" suma lo que pasó de '+meta+'h en cada semana del mes. '+
+    'Es un indicador de control, no la liquidación legal: los recargos de extra diurna/nocturna, dominical y '+
+    'festiva se calculan aparte según el Código Sustantivo del Trabajo.</div>';
+  return out;
+}
+async function hLoadMonth(){
+  const key = hMonthAnchor.getFullYear()+'-'+hMonthAnchor.getMonth();
+  if(hMonthAggKey === key && hMonthAgg){ hRender(); return; }
+  hMonthLoading = true; hRender();
+  const mondays = hMondaysInMonth(hMonthAnchor);
+  const agg = {}; H_EMPLOYEES.forEach(e=>{ agg[e] = { total:0, extra:0, dias:0, domingos:0, semanas:mondays.length }; });
+  for(const m of mondays){
+    const wd = await hGetWeek(m);
+    H_EMPLOYEES.forEach(e=>{
+      const t = hWeekTotals(wd, e, hIsoDate(m));
+      agg[e].total += t.total; agg[e].extra += t.extra; agg[e].dias += t.dias; agg[e].domingos += t.domingos;
+      agg[e].festivosTrabajados = (agg[e].festivosTrabajados||0) + t.festivosTrabajados;
+    });
+  }
+  hMonthAgg = agg; hMonthAggKey = key; hMonthLoading = false;
+  if(hActiveTab === 'mes') hRender();
+}
+
+function hRenderSettings(){
+  let rows = '<div class="h-row"><label for="hCfgMeta">Meta semanal (h)</label>'+
+    '<input id="hCfgMeta" type="text" inputmode="decimal" autocomplete="off" value="'+hNum(hConfig.meta,42)+'"></div>'+
+    '<div class="h-row"><label for="hCfgDes">Desayuno de quien abre (h)</label>'+
+    '<input id="hCfgDes" type="text" inputmode="decimal" autocomplete="off" value="'+hNum(hConfig.desayuno,0.5)+'"></div>';
+  H_EMPLOYEES.forEach((emp,i)=>{
+    rows += '<div class="h-row"><label for="hCfgD'+i+'">Descansos — '+hEsc(emp)+' (h)</label>'+
+      '<input id="hCfgD'+i+'" class="hCfgDesc" data-hemp="'+hEsc(emp)+'" type="text" inputmode="decimal" '+
+      'autocomplete="off" value="'+hDescansos(emp)+'"></div>';
+  });
+  return '<div class="h-overlay" id="hOverlay"><div class="h-modal" role="dialog" aria-label="Ajustes de horas">'+
+    '<h3>Ajustes de horas</h3>'+
+    '<div class="h-subnote">"Descansos" es el tiempo no pago por día de cada persona (almuerzo; en Paola, sus dos '+
+    'pausas de 2h ya incluyen el almuerzo). Aplica a todas las semanas.</div>'+
+    rows+'<button type="button" class="h-close" id="hSaveSettings">Guardar y cerrar</button></div></div>';
+}
+
+function hQ(sel){ return document.querySelectorAll('#mod-horas ' + sel); }
+
+function hBindEvents(){
+  hQ('[data-htab]').forEach(b=>{
+    b.onclick = async ()=>{
+      await hFlushAll();
+      hActiveTab = b.dataset.htab;
+      if(hActiveTab === 'mes') hLoadMonth(); else hRender();
+    };
+  });
+  const gear = document.getElementById('hGearBtn');
+  if(gear) gear.onclick = ()=>{ hSettingsOpen = true; hRender(); };
+  const gear2 = document.getElementById('hGearBtn2');
+  if(gear2) gear2.onclick = ()=>{ hSettingsOpen = true; hRender(); };
+
+  const overlay = document.getElementById('hOverlay');
+  if(overlay) overlay.onclick = e=>{ if(e.target.id === 'hOverlay'){ hSettingsOpen = false; hRender(); } };
+
+  const save = document.getElementById('hSaveSettings');
+  if(save) save.onclick = async ()=>{
+    const metaEl = document.getElementById('hCfgMeta');
+    const desEl  = document.getElementById('hCfgDes');
+    hConfig.meta     = hClamp(hNum(metaEl ? metaEl.value : null, hNum(hConfig.meta,42)), 1, 80);
+    hConfig.desayuno = hClamp(hNum(desEl ? desEl.value : null, hNum(hConfig.desayuno,0.5)), 0, 8);
+    hQ('.hCfgDesc').forEach(inp=>{
+      hConfig.descansos[inp.dataset.hemp] = hClamp(hNum(inp.value, hDescansos(inp.dataset.hemp)), 0, 12);
+    });
+    hSettingsOpen = false;
+    hMonthAgg = null; hMonthAggKey = null;
+    hRender();
+    await hGuardarConfig();
+  };
+
+  hQ('.h-emp-card').forEach(c=>{
+    c.onclick = async ()=>{ await hFlushAll(); hActiveEmployee = c.dataset.hemp; hActiveTab='detalle'; hRender(); };
+  });
+  hQ('[data-hselemp]').forEach(b=>{
+    b.onclick = async ()=>{ await hFlushAll(); hActiveEmployee = b.dataset.hselemp; hRender(); };
+  });
+
+  const pw = document.getElementById('hPrevWeek');
+  if(pw) pw.onclick = ()=>{ hGoWeek(-7); };
+  const nw = document.getElementById('hNextWeek');
+  if(nw) nw.onclick = ()=>{ hGoWeek(7); };
+  const pm = document.getElementById('hPrevMonth');
+  if(pm) pm.onclick = ()=>{ hMonthAnchor = new Date(hMonthAnchor.getFullYear(), hMonthAnchor.getMonth()-1, 1); hLoadMonth(); };
+  const nm = document.getElementById('hNextMonth');
+  if(nm) nm.onclick = ()=>{ hMonthAnchor = new Date(hMonthAnchor.getFullYear(), hMonthAnchor.getMonth()+1, 1); hLoadMonth(); };
+
+  hQ('input[type=time]').forEach(inp=>{
+    const handler = ()=>{
+      const day = inp.dataset.hday, kind = inp.dataset.hkind;
+      const di = H_DAYS.indexOf(day);
+      hWeekData[hActiveEmployee][day][kind] = inp.value || '';
+      hTouchDay(day, di >= 0 ? di : undefined);
+      hQueueSave(hActiveEmployee);
+    };
+    inp.oninput  = handler;
+    inp.onchange = handler;
+  });
+
+  hQ('.h-sw').forEach(sw=>{
+    const toggle = ()=>{
+      const day = sw.dataset.hday;
+      const di = H_DAYS.indexOf(day);
+      const val = !hWeekData[hActiveEmployee][day].abre;
+      hWeekData[hActiveEmployee][day].abre = val;
+      sw.classList.toggle('on', val);
+      sw.setAttribute('aria-checked', val ? 'true' : 'false');
+      hTouchDay(day, di >= 0 ? di : undefined);
+      hQueueSave(hActiveEmployee);
+    };
+    sw.onclick = toggle;
+    sw.onkeydown = e=>{ if(e.key===' '||e.key==='Enter'||e.key==='Spacebar'){ e.preventDefault(); toggle(); } };
+  });
+
+  hQ('[data-hfillday]').forEach(btn=>{
+    btn.onclick = ()=>{
+      const i = Number(btn.dataset.hfillday);
+      const day = H_DAYS[i];
+      hWeekData[hActiveEmployee][day].entrada = H_STORE_HOURS[i][0];
+      hWeekData[hActiveEmployee][day].salida  = H_STORE_HOURS[i][1];
+      const e = document.querySelector('#horas-root input[data-hday="'+day+'"][data-hkind="entrada"]');
+      const s = document.querySelector('#horas-root input[data-hday="'+day+'"][data-hkind="salida"]');
+      if(e) e.value = H_STORE_HOURS[i][0];
+      if(s) s.value = H_STORE_HOURS[i][1];
+      hTouchDay(day, i);
+      hQueueSave(hActiveEmployee);
+    };
+  });
+}
+
+async function hGoWeek(delta){
+  await hFlushAll();
+  hUserNavigated = true;
+  hWeekMonday = hAddDays(hWeekMonday, delta);
+  hWeekData = await hGetWeek(hWeekMonday);
+  hRender();
+}
+
+async function hOnVisible(){
+  if(!hCargado) return;
+  await hFlushAll();
+  const hoyLunes = hMondayOf(new Date());
+  const msDesde = hoyLunes - hWeekMonday;
+  const semanasDesde = msDesde / (7 * 24 * 3600 * 1000);
+  if(hWeekKey(hoyLunes) !== hWeekKey(hWeekMonday) && (!hUserNavigated || semanasDesde > 2)){
+    hWeekMonday = hoyLunes;
+    hUserNavigated = false;
+  }
+  hWeekData = await hGetWeek(hWeekMonday, true);
+  hLastRefresh = Date.now();
+  hMonthAgg = null; hMonthAggKey = null;
+  if(document.getElementById('mod-horas') && document.getElementById('mod-horas').classList.contains('active')){
+    if(hActiveTab === 'mes') hLoadMonth(); else hRender();
+  }
+}
+document.addEventListener('visibilitychange', ()=>{
+  if(document.visibilityState === 'hidden'){ hFlushAll(); }
+  else { hOnVisible(); }
+});
+window.addEventListener('pagehide', ()=>{ hFlushAll(); });
+
+function hMaybeRefresh(){
+  if(hHasPending()) return;
+  const now = Date.now();
+  if(now - hLastRefresh < H_REFRESH_MS) return;
+  hOnVisible();
+}
+
+window.HORAS = {
+  init(){ /* usa la misma sesión que Gastos y Gas */ },
+  async reload(){
+    hConfig = await hCargarConfig();
+    hWeekData = await hGetWeek(hWeekMonday, true);
+    hLastRefresh = Date.now();
+    hCargado = true;
+    const mod = document.getElementById('mod-horas');
+    if(mod && mod.classList.contains('active')){ if(hActiveTab==='mes') hLoadMonth(); else hRender(); }
+  },
+  show(){
+    if(!hCargado){ this.reload(); return; }
+    if(hActiveTab === 'mes') hLoadMonth(); else hRender();
+    hMaybeRefresh();
+  },
+  summary(){
+    const meta = hConfig ? hNum(hConfig.meta, 42) : 42;
+    if(!hCargado || !hWeekData) return { total:0, meta, completos:0 };
+    let total = 0, completos = 0;
+    H_EMPLOYEES.forEach(e=>{ const t = hWeekTotals(hWeekData, e); total += t.total; if(t.total >= meta - 0.001) completos++; });
+    return { total, meta, completos };
+  }
+};
+
+})();
+
 /* ─── Login ─────────────────────────────────────────────────── */
 function pintarLogin() {
   const sel = document.getElementById('login-user');
@@ -1861,18 +2666,19 @@ async function abrirApp() {
 
   window.GASTOS.init(SESSION);
   window.GAS.init(SESSION);
+  window.HORAS.init(SESSION);
 
   irA('inicio');
   pintarInicio();
 
   barra(true);
-  await Promise.all([ window.GASTOS.reload(), window.GAS.reload() ]);
+  await Promise.all([ window.GASTOS.reload(), window.GAS.reload(), window.HORAS.reload() ]);
   barra(false);
   pintarInicio();
 }
 
 /* ─── Navegación entre módulos ──────────────────────────────── */
-const TITULOS = { inicio: 'Inicio', gastos: 'Control de gastos', gas: 'Venta de gas' };
+const TITULOS = { inicio: 'Inicio', gastos: 'Control de gastos', gas: 'Venta de gas', horas: 'Control de horas' };
 
 function irA(mod) {
   document.querySelectorAll('.module').forEach(s => s.classList.remove('active'));
@@ -1883,6 +2689,7 @@ function irA(mod) {
   if (mod === 'inicio') pintarInicio();
   if (mod === 'gastos') window.GASTOS.show();
   if (mod === 'gas')    window.GAS.show();
+  if (mod === 'horas')  window.HORAS.show();
 }
 window.irA = irA;
 
@@ -1891,9 +2698,10 @@ const pesos = n => '$' + Math.round(Number(n) || 0).toString().replace(/\B(?=(\d
 
 function pintarInicio() {
   if (!SESSION) return;
-  let g = { total: 0, count: 0 }, s = { llenos: 0, salidas: 0 };
+  let g = { total: 0, count: 0 }, s = { llenos: 0, salidas: 0 }, h = { total: 0, meta: 42, completos: 0 };
   try { g = window.GASTOS.summary(); } catch (e) {}
   try { s = window.GAS.summary(); }    catch (e) {}
+  try { h = window.HORAS.summary(); }  catch (e) {}
 
   const hoy = new Date().toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long' });
 
@@ -1916,9 +2724,15 @@ function pintarInicio() {
         <div class="app-card-sub">Cilindros, deudas y préstamos</div>
         <div class="app-card-stat">${s.llenos} llenos<small>${s.salidas} ${s.salidas === 1 ? 'salida hoy' : 'salidas hoy'}</small></div>
       </button>
+      <button class="app-card" data-go="horas" style="grid-column:1/-1">
+        <div class="app-card-icon" style="background:rgba(26,95,168,.16)">⏱️</div>
+        <div class="app-card-name">HORAS</div>
+        <div class="app-card-sub">Control semanal del equipo</div>
+        <div class="app-card-stat">${h.total.toFixed(1)}h esta semana<small>${h.completos}/6 con la meta cumplida</small></div>
+      </button>
     </div>
     <div class="home-foot">
-      Las dos aplicaciones guardan en la <b>misma nube</b> de siempre.<br>
+      Las tres aplicaciones guardan en la <b>misma nube</b> de siempre.<br>
       Puedes cambiar de una a otra desde el menú de abajo.
     </div>`;
 }
