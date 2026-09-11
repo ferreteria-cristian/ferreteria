@@ -890,6 +890,7 @@ let state = {
   gastos: [],
   view: 'home',
   filterDate: todayStr(),
+  diaBase: todayStr(),   // el "hoy" con el que se pintó: sirve para detectar que pasó la medianoche
   resumenPeriodo: 'historico',
   form: { descripcion:'', monto:'', categoria:'transporte', persona:'', registradoPor: localStorage.getItem('fc-usuario')||'Cristian', fecha: todayStr() },
   deleteId: null,
@@ -1056,13 +1057,22 @@ window.addGasto = async function() {
   const btn=document.getElementById('btn-guardar');
   if(btn){btn.textContent='Guardando...';btn.disabled=true;}
   try {
-    await agregarGasto({fecha:fechaVal,descripcion,persona,categoria:state.form.categoria,monto,registradoPor:registradoPorVal});
+    const nuevoId = await agregarGasto({fecha:fechaVal,descripcion,persona,categoria:state.form.categoria,monto,registradoPor:registradoPorVal});
+    // Se agrega de una vez en memoria: no depender de la relectura a Firestore
+    // para verlo en pantalla. En iPhone esa relectura a veces se queda colgada
+    // justo al cerrar el teclado o cambiar de wifi a datos — el gasto quedaba
+    // guardado en la nube pero no aparecía hasta forzar una recarga completa.
+    state.gastos.unshift({
+      id: nuevoId, fecha: fechaVal, descripcion, persona,
+      categoria: state.form.categoria, monto, registradoPor: registradoPorVal,
+      timestamp: new Date().toISOString()
+    });
     const savedDate=fechaVal;
     state.form={descripcion:'',monto:'',categoria:'transporte',persona:'',registradoPor:registradoPorVal,fecha:todayStr()};
     state.filterDate=savedDate;
     showToast('Gasto registrado ✓');
     showView('home');
-    await loadData(true);
+    loadData(true); // reconcilia con el servidor en segundo plano; la pantalla ya no depende de esto
   } catch(e) {
     showToast('Error: '+e.message,'error');
     if(btn){btn.textContent='💾 GUARDAR GASTO';btn.disabled=false;}
@@ -1183,11 +1193,14 @@ window.closeModal = function(id){document.getElementById(id).style.display='none
 window.confirmDelete = async function() {
   if(!state.deleteId) return;
   closeModal('modal-del');
+  const id = state.deleteId;
   try {
-    await eliminarGasto(state.deleteId);
+    await eliminarGasto(id);
+    state.gastos = state.gastos.filter(g => g.id !== id);
     state.deleteId=null;
     showToast('Gasto eliminado');
-    await loadData(true);
+    renderContent();
+    loadData(true); // reconcilia en segundo plano
   } catch(e){showToast('Error: '+e.message,'error');}
 };
 
@@ -1222,9 +1235,12 @@ window.confirmEdit = async function() {
     };
     closeModal('modal-edit');
     await editarGasto(state.editId, payload);
+    const idx = state.gastos.findIndex(g => g.id === state.editId);
+    if (idx !== -1) state.gastos[idx] = { ...state.gastos[idx], ...payload };
     state.editId=null;
     showToast('Gasto actualizado ✓');
-    await loadData(true);
+    renderContent();
+    loadData(true); // reconcilia en segundo plano
   } catch(e){showToast('Error: '+String(e.message||e),'error');}
 };
 
@@ -1263,10 +1279,24 @@ window.GASTOS = {
     state.session = session;
     state.form.registradoPor = session.nombre;
     state.filterDate = todayStr();
+    state.diaBase = todayStr();
     render();
   },
   async reload() { await loadData(true); gastosCargado = true; render(); },
   show() { if (!gastosCargado) { this.reload(); } else { render(); } },
+  // Se llama al volver a la app o al entrar al módulo (con freno de tiempo en el shell).
+  async refrescar() {
+    const hoy = todayStr();
+    // Si la app quedó abierta pasada la medianoche y el usuario NO había elegido
+    // otra fecha a mano, se mueve sola al día nuevo. Si sí eligió otra fecha, se respeta.
+    if (state.filterDate === state.diaBase && hoy !== state.diaBase) {
+      state.filterDate = hoy;
+      state.form.fecha = hoy;
+    }
+    state.diaBase = hoy;
+    await loadData(true);
+    render();
+  },
   summary() {
     const hoy = todayStr();
     let l = state.gastos.filter(g => g.fecha === hoy);
@@ -1990,6 +2020,7 @@ window.GAS = {
   },
   async reload() { await cargarDatos(); renderAll(); gasCargado = true; },
   show() { if (!gasCargado) { this.reload(); } },
+  async refrescar() { await cargarDatos(); renderAll(); gasCargado = true; },
   summary() {
     const hoy = new Date().toDateString();
     return {
@@ -2730,6 +2761,37 @@ async function abrirApp() {
   pintarInicio();
 }
 
+/* ─── Refresco al volver a la app ────────────────────────────────
+   En el iPhone la app añadida a inicio queda viva en memoria días enteros:
+   sin esto, lo que registre otra persona en su celular no aparece hasta
+   cerrar y abrir del todo. También devuelve Gastos al día correcto si la
+   app pasó la medianoche abierta. El freno de 20s evita gastar lecturas
+   de Firebase cada vez que se toca una pestaña. */
+const REFRESCO_MS = 20000;
+let ultimoRefresco = Date.now();
+
+async function refrescarSiHaceFalta(forzar) {
+  if (!SESSION) return;
+  if (!forzar && Date.now() - ultimoRefresco < REFRESCO_MS) return;
+  ultimoRefresco = Date.now();
+  try {
+    await Promise.all([
+      window.GASTOS.refrescar(),
+      window.GAS.refrescar()
+      // HORAS se refresca solo: ya tiene su propio control de semana.
+    ]);
+    pintarInicio();
+  } catch (e) {
+    // Sin señal: se conserva lo que ya está en pantalla en vez de vaciarlo.
+    console.error('refresco', e);
+  }
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') refrescarSiHaceFalta();
+});
+window.addEventListener('focus', () => refrescarSiHaceFalta());
+
 /* ─── Navegación entre módulos ──────────────────────────────── */
 const TITULOS = { inicio: 'Inicio', gastos: 'Control de gastos', gas: 'Venta de gas', horas: 'Control de horas' };
 
@@ -2743,6 +2805,7 @@ function irA(mod) {
   if (mod === 'gastos') window.GASTOS.show();
   if (mod === 'gas')    window.GAS.show();
   if (mod === 'horas')  window.HORAS.show();
+  refrescarSiHaceFalta();   // con freno de 20s: no gasta lecturas por tocar pestañas
 }
 window.irA = irA;
 
