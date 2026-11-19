@@ -135,7 +135,7 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
   color:#6B8299;transition:color .18s;position:relative}
 .nav-item .ni-ico{width:23px;height:23px;font-size:19px;line-height:23px;text-align:center}
-.nav-item .ni-lbl{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;
+.nav-item .ni-lbl{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;
   letter-spacing:.8px;text-transform:uppercase}
 .nav-item.active{color:var(--orange)}
 .nav-item.active::before{content:'';position:absolute;top:0;left:22%;right:22%;height:3px;
@@ -511,6 +511,115 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
 #mod-horas .h-loading{padding:50px 20px;text-align:center;font-family:'Barlow Condensed',sans-serif;
   color:var(--gray);font-size:14px;text-transform:uppercase}
 
+/* ═══════════════════ MÓDULO ALQUILER ═══════════════════ */
+#mod-alquiler{background:transparent}
+#mod-alquiler .content{max-width:600px;margin:0 auto;padding:0 16px calc(24px + var(--safe-bottom))}
+#mod-alquiler button{touch-action:manipulation}
+
+#mod-alquiler .a-sticky{position:sticky;top:calc(var(--header-h) + var(--safe-top));z-index:92;
+  background:var(--cream);padding:12px 0 8px;margin:0 -4px 4px}
+#mod-alquiler .a-tabs{display:flex;background:var(--navy);border-radius:11px;padding:3px;gap:2px;
+  box-shadow:var(--shadow);margin:0 4px}
+#mod-alquiler .a-tabs button{flex:1;border:none;background:transparent;padding:11px 0;border-radius:9px;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12.5px;color:#8FA3B5;cursor:pointer;
+  text-transform:uppercase;min-height:44px}
+#mod-alquiler .a-tabs button.active{background:var(--orange);color:#fff}
+
+#mod-alquiler .a-card{background:var(--white);border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+#mod-alquiler .a-title{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+#mod-alquiler .a-title-ico{width:26px;height:26px;border-radius:7px;background:var(--navy);display:flex;
+  align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+#mod-alquiler .a-lbl{font-size:11px;font-weight:600;color:var(--gray);text-transform:uppercase;
+  letter-spacing:.5px;margin-bottom:5px;display:block}
+#mod-alquiler .a-in{width:100%;padding:13px 14px;border:2px solid var(--gray-light);border-radius:10px;
+  font-family:'Barlow',sans-serif;font-size:16px;color:var(--navy);outline:none;background:var(--white);
+  margin-bottom:11px;-webkit-appearance:none;appearance:none}
+#mod-alquiler .a-in:focus{border-color:var(--orange)}
+#mod-alquiler .a-row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+#mod-alquiler .a-step{display:flex;gap:10px;align-items:center;margin-bottom:11px}
+#mod-alquiler .a-step button{width:44px;height:44px;border:2px solid var(--gray-light);border-radius:10px;
+  background:var(--white);font-size:20px;font-weight:700;color:var(--navy);cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center}
+#mod-alquiler .a-step button:active{opacity:.6}
+#mod-alquiler .a-step input{flex:1;min-width:0;text-align:center;font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:20px;margin-bottom:0}
+
+#mod-alquiler .a-total{background:var(--navy);color:#fff;border-radius:10px;padding:12px 16px;
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+#mod-alquiler .a-total .a-t-lbl{font-size:12px;opacity:.6}
+#mod-alquiler .a-total .a-t-sub{font-size:10px;opacity:.5;margin-top:2px}
+#mod-alquiler .a-total .a-t-val{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:var(--orange)}
+
+#mod-alquiler .a-btn{width:100%;padding:14px;border:none;border-radius:10px;
+  font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.5px;
+  cursor:pointer;min-height:48px;transition:opacity .15s}
+#mod-alquiler .a-btn:active{opacity:.85}
+#mod-alquiler .a-orange{background:var(--orange);color:#fff}
+#mod-alquiler .a-navy{background:var(--navy);color:#fff}
+#mod-alquiler .a-green{background:var(--green);color:#fff}
+#mod-alquiler .a-blue{background:var(--blue);color:#fff}
+#mod-alquiler .a-sm{padding:0 14px;border:none;border-radius:7px;font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;font-weight:700;cursor:pointer;min-height:38px;display:inline-flex;align-items:center}
+#mod-alquiler .a-del{padding:0 12px;border:none;border-radius:7px;background:var(--red);color:#fff;
+  font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;cursor:pointer;
+  min-height:38px;min-width:38px;display:inline-flex;align-items:center;justify-content:center}
+
+#mod-alquiler .a-inv{display:flex;gap:8px;margin-bottom:12px}
+#mod-alquiler .a-box{flex:1;border-radius:12px;padding:14px 8px;text-align:center}
+#mod-alquiler .a-box.disp{background:var(--green-light);border:2px solid var(--green)}
+#mod-alquiler .a-box.fuera{background:#fff3ed;border:2px solid var(--orange)}
+#mod-alquiler .a-box.tot{background:var(--blue-light);border:2px solid var(--blue)}
+#mod-alquiler .a-box .a-n{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:800;line-height:1}
+#mod-alquiler .a-box.disp .a-n{color:var(--green)}
+#mod-alquiler .a-box.fuera .a-n{color:var(--orange)}
+#mod-alquiler .a-box.tot .a-n{color:var(--blue)}
+#mod-alquiler .a-box .a-bl{font-size:10px;font-weight:700;text-transform:uppercase;margin-top:4px;
+  color:var(--navy);opacity:.7}
+
+#mod-alquiler .a-item{padding:13px 0;border-bottom:1px solid var(--gray-light)}
+#mod-alquiler .a-item:last-child{border-bottom:none}
+#mod-alquiler .a-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:5px}
+#mod-alquiler .a-name{font-weight:600;font-size:15px;color:var(--navy);flex:1;min-width:0}
+#mod-alquiler .a-acum{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:800;
+  color:var(--orange);flex:0 0 auto;text-align:right;line-height:1.1}
+#mod-alquiler .a-acum small{display:block;font-family:'Barlow',sans-serif;font-size:10px;
+  font-weight:500;color:var(--gray)}
+#mod-alquiler .a-meta{font-size:11.5px;color:var(--gray);line-height:1.5;margin-bottom:9px}
+#mod-alquiler .a-meta b{color:var(--navy);font-weight:700}
+#mod-alquiler .a-acts{display:flex;gap:8px;flex-wrap:wrap}
+#mod-alquiler .a-tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:700;
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;margin-left:6px;vertical-align:middle}
+#mod-alquiler .a-tag.dep{background:var(--blue-light);color:var(--blue)}
+#mod-alquiler .a-tag.sin{background:var(--gray-light);color:var(--gray)}
+
+#mod-alquiler .a-liq{background:var(--gray-light);border-radius:10px;padding:12px 14px;margin-bottom:12px;
+  font-size:13px;line-height:1.9;color:var(--navy)}
+#mod-alquiler .a-liq .a-lr{display:flex;justify-content:space-between;gap:10px}
+#mod-alquiler .a-liq .a-lr span:last-child{font-weight:700;white-space:nowrap}
+#mod-alquiler .a-liq .a-sep{border-top:1px solid #d8d2c6;margin:7px 0}
+#mod-alquiler .a-liq .a-big{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:800}
+#mod-alquiler .a-liq .a-favor{color:var(--green)}
+#mod-alquiler .a-liq .a-debe{color:var(--red)}
+#mod-alquiler .a-hint{font-size:11px;color:var(--gray);line-height:1.5;margin-bottom:10px}
+
+#mod-alquiler .a-empty{text-align:center;padding:40px 20px;color:var(--gray)}
+#mod-alquiler .a-empty-i{font-size:40px;margin-bottom:10px}
+#mod-alquiler .a-empty-t{font-size:13px}
+#mod-alquiler .a-ov{position:fixed;inset:0;background:rgba(14,39,60,.62);z-index:500;display:flex;
+  align-items:flex-end;justify-content:center}
+@media (min-height:500px){ #mod-alquiler .a-ov{align-items:center;padding:20px} }
+#mod-alquiler .a-modal{background:var(--white);width:100%;max-width:420px;border-radius:18px 18px 0 0;
+  padding:22px 20px calc(24px + var(--safe-bottom));max-height:88dvh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+@media (min-height:500px){ #mod-alquiler .a-modal{border-radius:18px;padding-bottom:22px} }
+#mod-alquiler .a-modal h3{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;
+  color:var(--navy);text-transform:uppercase;margin:0 0 6px}
+#mod-alquiler .a-modal .a-sub{font-size:12px;color:var(--gray);margin-bottom:16px;line-height:1.45}
+#mod-alquiler .a-mbtns{display:flex;gap:10px;margin-top:6px}
+#mod-alquiler .a-mbtns button{flex:1}
+#mod-alquiler .a-cancel{background:var(--gray-light);color:var(--navy)}
+
 </style>
 </head>
 <body>
@@ -770,6 +879,11 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
       <div id="horas-root"></div>
     </section>
 
+    <!-- ── ALQUILER ── -->
+    <section class="module" id="mod-alquiler">
+      <div id="alquiler-root"></div>
+    </section>
+
   </main>
 
   <nav id="bottomNav">
@@ -785,6 +899,9 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
     </button>
     <button class="nav-item" data-mod="horas">
       <span class="ni-ico">⏱️</span><span class="ni-lbl">Horas</span>
+    </button>
+    <button class="nav-item" data-mod="alquiler">
+      <span class="ni-ico">🏗️</span><span class="ni-lbl">Alquiler</span>
     </button>
   </nav>
 
@@ -2705,6 +2822,606 @@ window.HORAS = {
 
 })();
 
+
+/* ═══════════════════════════════════════════════════════════════
+   MÓDULO ALQUILER — andamios (cuerpos) y canes
+   Colecciones: alq_alquileres / alq_config
+   Regla de cobro: se cuentan días calendario incluyendo el día de
+   entrega y el de devolución (sale y vuelve el mismo día = 1 día).
+   Con devoluciones parciales, cada grupo deja de generar cobro el
+   día que vuelve; lo que sigue afuera sigue sumando hasta hoy.
+   ═══════════════════════════════════════════════════════════════ */
+(function(){
+'use strict';
+
+const A_COL = 'alq_alquileres';
+const A_CFG = 'alq_config';
+const A_DEF = {
+  tarifaCuerpo: 1700,
+  tarifaCan: 700,
+  depositoPorCuerpo: 0,     // se fija en Ajustes
+  reposicionCuerpo: 400000,
+  reposicionCan: 0,
+  baseCuerpos: 0,
+  baseCanes: 0
+};
+
+let aCfg = null;
+let aLista = [];           // todos los alquileres (abiertos y cerrados)
+let aTab = 'activos';
+let aCargado = false;
+let aCargando = false;
+let aModal = null;         // {tipo:'devolver'|'liquidar'|'ajustes'|'nuevo', id}
+let aForm = { cuerpos:0, canes:0 };
+
+/* ─── utilidades ─────────────────────────────────────────── */
+const aEsc = s => String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const aNum = (v,d=0)=>{ const n=parseInt(String(v==null?'':v).trim(),10); return isFinite(n)?n:d; };
+const aMon = n => '$'+Math.round(Number(n)||0).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+const aISO = d => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const aHoy = () => aISO(new Date());
+// Días cobrados entre dos fechas (solo la parte de fecha, sin horas), contando ambos extremos.
+function aDias(desdeISO, hastaISO){
+  const a = new Date(desdeISO+'T00:00:00'), b = new Date(hastaISO+'T00:00:00');
+  const d = Math.round((b-a)/86400000) + 1;
+  return d < 1 ? 1 : d;
+}
+function aFechaCorta(isoFecha){
+  const M=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const d=new Date(isoFecha+'T12:00:00');
+  return d.getDate()+' '+M[d.getMonth()];
+}
+const aTar = k => aNum(aCfg?aCfg[k]:A_DEF[k], A_DEF[k]);
+
+/* ─── cálculo central ────────────────────────────────────────
+   Para un alquiler devuelve: lo que sigue afuera, el acumulado
+   hasta `hastaISO`, y el desglose por tramos. */
+function aCalc(al, hastaISO){
+  const hasta = hastaISO || aHoy();
+  const tC = aTar('tarifaCuerpo'), tN = aTar('tarifaCan');
+  const devs = Array.isArray(al.devoluciones) ? al.devoluciones : [];
+  let devC = 0, devN = 0, total = 0;
+  const tramos = [];
+
+  devs.forEach(d => {
+    const c = aNum(d.cuerpos,0), n = aNum(d.canes,0);
+    const dias = aDias(al.fechaSalida, d.fecha);
+    const sub = (c*tC + n*tN) * dias;
+    devC += c; devN += n; total += sub;
+    tramos.push({ tipo:'devuelto', fecha:d.fecha, cuerpos:c, canes:n, dias, sub });
+  });
+
+  const fueraC = Math.max(0, aNum(al.cuerpos,0) - devC);
+  const fueraN = Math.max(0, aNum(al.canes,0) - devN);
+  if (fueraC > 0 || fueraN > 0) {
+    const dias = aDias(al.fechaSalida, hasta);
+    const sub = (fueraC*tC + fueraN*tN) * dias;
+    total += sub;
+    tramos.push({ tipo:'afuera', fecha:hasta, cuerpos:fueraC, canes:fueraN, dias, sub });
+  }
+  return { fueraC, fueraN, total, tramos, diasTotales: aDias(al.fechaSalida, hasta) };
+}
+
+const aAbiertos = () => aLista.filter(a => a.estado !== 'cerrado');
+const aCerrados = () => aLista.filter(a => a.estado === 'cerrado');
+
+function aInventario(){
+  const baseC = aTar('baseCuerpos'), baseN = aTar('baseCanes');
+  let fueraC = 0, fueraN = 0;
+  aAbiertos().forEach(al => { const c = aCalc(al); fueraC += c.fueraC; fueraN += c.fueraN; });
+  return { baseC, baseN, fueraC, fueraN,
+           dispC: baseC - fueraC, dispN: baseN - fueraN };
+}
+
+/* ─── Firestore ──────────────────────────────────────────── */
+const aRefCfg = () => db.collection(A_CFG).doc('main');
+async function aCargarCfg(){
+  const m = JSON.parse(JSON.stringify(A_DEF));
+  try {
+    const s = await aRefCfg().get();
+    if (s.exists) { const c = s.data()||{}; Object.keys(A_DEF).forEach(k=>{ if(isFinite(aNum(c[k],NaN))) m[k]=aNum(c[k],m[k]); }); }
+  } catch(e){ console.error('alquiler: config', e); }
+  return m;
+}
+async function aGuardarCfg(){
+  try { await aRefCfg().set(aCfg, {merge:true}); window.__toast('Ajustes guardados','success'); }
+  catch(e){ console.error(e); window.__toast('No se pudieron guardar los ajustes','error'); }
+}
+async function aCargarDatos(){
+  try {
+    const snap = await db.collection(A_COL).orderBy('fechaSalida','desc').get();
+    aLista = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+  } catch(e){ console.error('alquiler: datos', e); window.__toast('Error cargando alquileres','error'); }
+}
+
+/* ─── acciones ───────────────────────────────────────────── */
+async function aRegistrar(){
+  if (aCargando) return;
+  const cliente = (document.getElementById('a-cliente').value||'').trim();
+  const cuerpos = aNum(document.getElementById('a-cuerpos').value,0);
+  const canes   = aNum(document.getElementById('a-canes').value,0);
+  const deposito= aNum(String(document.getElementById('a-deposito').value).replace(/\./g,''),0);
+  const obs     = (document.getElementById('a-obs').value||'').trim();
+  if (!cliente) { window.__toast('Escribe el nombre del cliente','error'); return; }
+  if (cuerpos < 1 && canes < 1) { window.__toast('Indica cuántos cuerpos o canes salen','error'); return; }
+
+  const inv = aInventario();
+  if (cuerpos > inv.dispC || canes > inv.dispN) {
+    aConfirm('Más de lo disponible',
+      'Según el inventario quedan '+inv.dispC+' cuerpos y '+inv.dispN+' canes, y vas a sacar '+
+      cuerpos+' y '+canes+'. Si el conteo está viejo, ajústalo en Inventario.',
+      'Registrar igual','a-orange', ()=>aGuardarSalida(cliente,cuerpos,canes,deposito,obs));
+    return;
+  }
+  await aGuardarSalida(cliente,cuerpos,canes,deposito,obs);
+}
+
+async function aGuardarSalida(cliente,cuerpos,canes,deposito,obs){
+  if (aCargando) return;
+  aCargando = true; barra(true);
+  try {
+    const doc = { cliente, cuerpos, canes, deposito, obs,
+      fechaSalida: aHoy(), creado: new Date().toISOString(),
+      registradoPor: (SESSION&&SESSION.nombre)||'', devoluciones: [], estado: 'abierto' };
+    const ref = await db.collection(A_COL).add(doc);
+    aLista.unshift({ id: ref.id, ...doc });
+    document.getElementById('a-cliente').value = '';
+    document.getElementById('a-obs').value = '';
+    aForm = { cuerpos:0, canes:0 };
+    window.__toast('✓ Salida registrada','success');
+    aTab = 'activos'; aRender();
+  } catch(e){ console.error(e); window.__toast('Error al guardar','error'); }
+  aCargando = false; barra(false);
+}
+
+async function aGuardarDevolucion(id, c, n){
+  if (aCargando) return;                 // evita que un doble toque la guarde dos veces
+  const al = aLista.find(x=>x.id===id); if(!al) return;
+  const calc = aCalc(al);
+  if (c > calc.fueraC || n > calc.fueraN) { window.__toast('Está devolviendo más de lo que tiene afuera','error'); return; }
+  if (c < 1 && n < 1) { window.__toast('Indica cuántos devuelve','error'); return; }
+  aCargando = true; barra(true);
+  try {
+    const devs = (al.devoluciones||[]).concat([{ fecha: aHoy(), cuerpos:c, canes:n }]);
+    await db.collection(A_COL).doc(id).update({ devoluciones: devs });
+    al.devoluciones = devs;
+    aModal = null;
+    const resto = aCalc(al);
+    if (resto.fueraC===0 && resto.fueraN===0) {
+      window.__toast('Todo devuelto — falta liquidar','success');
+      aModal = { tipo:'liquidar', id };
+    } else {
+      window.__toast('✓ Devolución registrada','success');
+    }
+    aRender();
+  } catch(e){ console.error(e); window.__toast('Error al guardar','error'); }
+  aCargando = false; barra(false);
+}
+
+async function aLiquidar(id, cargos, ajuste, nota){
+  if (aCargando) return;                 // evita liquidar dos veces con un doble toque
+  const al = aLista.find(x=>x.id===id); if(!al) return;
+  aCargando = true; barra(true);
+  try {
+    const calc = aCalc(al);
+    const totalAlquiler = calc.total;
+    const totalCobrado = totalAlquiler + cargos - ajuste;
+    const saldo = aNum(al.deposito,0) - totalCobrado;   // + a favor del cliente, − le falta pagar
+    const cierre = { fecha: aHoy(), totalAlquiler, cargos, ajuste, totalCobrado, saldo,
+                     nota: nota||'', liquidadoPor: (SESSION&&SESSION.nombre)||'',
+                     tramos: calc.tramos };
+    await db.collection(A_COL).doc(id).update({ estado:'cerrado', cierre });
+    al.estado = 'cerrado'; al.cierre = cierre;
+    aModal = null;
+    window.__toast('✓ Alquiler liquidado','success');
+    aRender();
+  } catch(e){ console.error(e); window.__toast('Error al liquidar','error'); }
+  aCargando = false; barra(false);
+}
+
+async function aEliminar(id){
+  aCargando = true; barra(true);
+  try {
+    await db.collection(A_COL).doc(id).delete();
+    aLista = aLista.filter(x=>x.id!==id);
+    window.__toast('Registro eliminado','success');
+    aRender();
+  } catch(e){ console.error(e); window.__toast('Error al eliminar','error'); }
+  aCargando = false; barra(false);
+}
+
+/* ─── confirmación simple ────────────────────────────────── */
+let aConfirmFn = null;
+function aConfirm(titulo, msg, accion, clase, fn){
+  aConfirmFn = fn;
+  aModal = { tipo:'confirm', titulo, msg, accion, clase };
+  aRender();
+}
+
+/* ─── render ─────────────────────────────────────────────── */
+function aRender(){
+  const root = document.getElementById('alquiler-root');
+  if (!root) return;
+  if (!aCargado) { root.innerHTML = '<div class="content"><div class="a-empty"><div class="a-empty-t">Cargando…</div></div></div>'; return; }
+  let h = '<div class="content">'+
+    '<div class="a-sticky"><div class="a-tabs">'+
+    '<button type="button" data-atab="activos" class="'+(aTab==='activos'?'active':'')+'">Afuera</button>'+
+    '<button type="button" data-atab="nuevo" class="'+(aTab==='nuevo'?'active':'')+'">Prestar</button>'+
+    '<button type="button" data-atab="inventario" class="'+(aTab==='inventario'?'active':'')+'">Inventario</button>'+
+    '<button type="button" data-atab="historial" class="'+(aTab==='historial'?'active':'')+'">Historial</button>'+
+    '</div></div>';
+  if (aTab==='activos')     h += aVistaActivos();
+  if (aTab==='nuevo')       h += aVistaNuevo();
+  if (aTab==='inventario')  h += aVistaInventario();
+  if (aTab==='historial')   h += aVistaHistorial();
+  h += '</div>';
+  if (aModal) h += aVistaModal();
+  root.innerHTML = h;
+  aBind();
+}
+
+function aVistaActivos(){
+  const abiertos = aAbiertos();
+  if (!abiertos.length) return '<div class="a-empty"><div class="a-empty-i">📦</div>'+
+    '<div class="a-empty-t">No hay nada prestado en este momento</div></div>';
+  let out = '';
+  abiertos.forEach(al => {
+    const c = aCalc(al);
+    const dep = aNum(al.deposito,0);
+    const piezas = [];
+    if (c.fueraC) piezas.push('<b>'+c.fueraC+'</b> cuerpo'+(c.fueraC>1?'s':''));
+    if (c.fueraN) piezas.push('<b>'+c.fueraN+'</b> can'+(c.fueraN>1?'es':''));
+    const devs = (al.devoluciones||[]).length;
+    out += '<div class="a-card"><div class="a-item">'+
+      '<div class="a-top"><div class="a-name">'+aEsc(al.cliente)+
+        (dep>0 ? '<span class="a-tag dep">Depósito '+aMon(dep)+'</span>'
+               : '<span class="a-tag sin">Sin depósito</span>')+'</div>'+
+        '<div class="a-acum">'+aMon(c.total)+'<small>acumulado</small></div></div>'+
+      '<div class="a-meta">'+
+        (piezas.length ? piezas.join(' · ')+' afuera' : 'Todo devuelto — falta liquidar')+'<br>'+
+        'Salió el '+aFechaCorta(al.fechaSalida)+' · <b>'+c.diasTotales+'</b> día'+(c.diasTotales>1?'s':'')+
+        (devs ? ' · '+devs+' devolución'+(devs>1?'es':'')+' parcial'+(devs>1?'es':'') : '')+
+      '</div>'+
+      '<div class="a-acts">'+
+        ((c.fueraC||c.fueraN) ? '<button class="a-sm a-blue" data-adev="'+al.id+'">↩ Devolver</button>' : '')+
+        '<button class="a-sm a-green" data-aliq="'+al.id+'">✓ Liquidar</button>'+
+        (window.esAdmin&&window.esAdmin() ? '<button class="a-del" data-adel="'+al.id+'">✕</button>' : '')+
+      '</div></div></div>';
+  });
+  return out;
+}
+
+function aVistaNuevo(){
+  const inv = aInventario();
+  const dep = aForm.cuerpos * aTar('depositoPorCuerpo');
+  const diario = aForm.cuerpos*aTar('tarifaCuerpo') + aForm.canes*aTar('tarifaCan');
+  return '<div class="a-card">'+
+    '<div class="a-title"><div class="a-title-ico">🏗️</div>Nueva salida</div>'+
+    '<label class="a-lbl">Cliente</label>'+
+    '<input type="text" id="a-cliente" class="a-in" placeholder="Nombre de quien se lo lleva" '+
+      'autocomplete="off" autocorrect="off" autocapitalize="words" spellcheck="false">'+
+    '<label class="a-lbl">Cuerpos de andamio — disponibles: '+inv.dispC+'</label>'+
+    '<div class="a-step"><button type="button" data-astep="cuerpos:-1">−</button>'+
+      '<input type="number" id="a-cuerpos" class="a-in" value="'+aForm.cuerpos+'" min="0" inputmode="numeric" pattern="[0-9]*">'+
+      '<button type="button" data-astep="cuerpos:1">+</button></div>'+
+    '<label class="a-lbl">Canes — disponibles: '+inv.dispN+'</label>'+
+    '<div class="a-step"><button type="button" data-astep="canes:-1">−</button>'+
+      '<input type="number" id="a-canes" class="a-in" value="'+aForm.canes+'" min="0" inputmode="numeric" pattern="[0-9]*">'+
+      '<button type="button" data-astep="canes:1">+</button></div>'+
+    '<div class="a-total"><div><div class="a-t-lbl">Se cobra por día</div>'+
+      '<div class="a-t-sub">'+aForm.cuerpos+' cuerpos × '+aMon(aTar('tarifaCuerpo'))+' + '+aForm.canes+' canes × '+aMon(aTar('tarifaCan'))+'</div></div>'+
+      '<div class="a-t-val">'+aMon(diario)+'</div></div>'+
+    '<label class="a-lbl">Depósito que deja</label>'+
+    '<input type="text" id="a-deposito" class="a-in" value="'+(dep>0?String(dep).replace(/\B(?=(\d{3})+(?!\d))/g,'.'):'')+'" '+
+      'inputmode="numeric" placeholder="0 si es cliente corriente">'+
+    '<div class="a-hint">A los clientes corrientes no se les pide depósito: deja el campo en 0.</div>'+
+    '<label class="a-lbl">Observación (opcional)</label>'+
+    '<input type="text" id="a-obs" class="a-in" placeholder="Obra, teléfono, quién lo recibió..." autocomplete="off">'+
+    '<button class="a-btn a-orange" id="a-registrar">REGISTRAR SALIDA</button>'+
+    '</div>';
+}
+
+function aVistaInventario(){
+  const inv = aInventario();
+  return '<div class="a-card">'+
+    '<div class="a-title"><div class="a-title-ico">🏗️</div>Cuerpos de andamio</div>'+
+    '<div class="a-inv">'+
+      '<div class="a-box disp"><div class="a-n">'+inv.dispC+'</div><div class="a-bl">Disponibles</div></div>'+
+      '<div class="a-box fuera"><div class="a-n">'+inv.fueraC+'</div><div class="a-bl">Afuera</div></div>'+
+      '<div class="a-box tot"><div class="a-n">'+inv.baseC+'</div><div class="a-bl">Total</div></div>'+
+    '</div>'+
+    '<div class="a-hint">Un cuerpo son 2 marcos + 2 tijeras. Se alquila completo.</div></div>'+
+    '<div class="a-card">'+
+    '<div class="a-title"><div class="a-title-ico">🪵</div>Canes</div>'+
+    '<div class="a-inv">'+
+      '<div class="a-box disp"><div class="a-n">'+inv.dispN+'</div><div class="a-bl">Disponibles</div></div>'+
+      '<div class="a-box fuera"><div class="a-n">'+inv.fueraN+'</div><div class="a-bl">Afuera</div></div>'+
+      '<div class="a-box tot"><div class="a-n">'+inv.baseN+'</div><div class="a-bl">Total</div></div>'+
+    '</div></div>'+
+    ((window.esAdmin && window.esAdmin()) ?
+      '<div class="a-card">'+
+        '<div class="a-title"><div class="a-title-ico">⚙️</div>Ajustes</div>'+
+        '<div class="a-hint">Cuántos tienes en total, tarifas y depósito por cuerpo.</div>'+
+        '<button class="a-btn a-navy" id="a-abrir-ajustes">AJUSTAR INVENTARIO Y TARIFAS</button>'+
+      '</div>' : '');
+}
+
+function aVistaHistorial(){
+  const cerrados = aCerrados();
+  if (!cerrados.length) return '<div class="a-empty"><div class="a-empty-i">📋</div>'+
+    '<div class="a-empty-t">Todavía no hay alquileres liquidados</div></div>';
+  let total = 0;
+  cerrados.forEach(a => { total += aNum(a.cierre&&a.cierre.totalCobrado,0); });
+  let out = '<div class="a-card"><div class="a-item"><div class="a-top">'+
+    '<div class="a-name">Total cobrado histórico</div>'+
+    '<div class="a-acum">'+aMon(total)+'<small>'+cerrados.length+' alquiler'+(cerrados.length>1?'es':'')+'</small></div>'+
+    '</div></div></div>';
+  cerrados.forEach(al => {
+    const ci = al.cierre||{};
+    const saldo = aNum(ci.saldo,0);
+    out += '<div class="a-card"><div class="a-item">'+
+      '<div class="a-top"><div class="a-name">'+aEsc(al.cliente)+'</div>'+
+      '<div class="a-acum">'+aMon(ci.totalCobrado)+'<small>cobrado</small></div></div>'+
+      '<div class="a-meta">'+aNum(al.cuerpos,0)+' cuerpos · '+aNum(al.canes,0)+' canes · '+
+      aFechaCorta(al.fechaSalida)+' → '+aFechaCorta(ci.fecha||al.fechaSalida)+
+      (aNum(ci.cargos,0)>0 ? '<br>Cargo por daños o pérdida: <b>'+aMon(ci.cargos)+'</b>' : '')+
+      (aNum(al.deposito,0)>0 ? '<br>Depósito '+aMon(al.deposito)+' · '+
+        (saldo>=0 ? 'se le devolvieron <b>'+aMon(saldo)+'</b>' : 'pagó <b>'+aMon(-saldo)+'</b> adicionales') : '')+
+      (ci.nota ? '<br>'+aEsc(ci.nota) : '')+
+      '</div>'+
+      (window.esAdmin&&window.esAdmin() ? '<div class="a-acts"><button class="a-del" data-adel="'+al.id+'">✕</button></div>' : '')+
+      '</div></div>';
+  });
+  return out;
+}
+
+/* ─── modales ────────────────────────────────────────────── */
+function aVistaModal(){
+  if (aModal.tipo === 'confirm') {
+    return '<div class="a-ov" id="a-ov"><div class="a-modal">'+
+      '<h3>'+aEsc(aModal.titulo)+'</h3><div class="a-sub">'+aEsc(aModal.msg)+'</div>'+
+      '<div class="a-mbtns"><button class="a-btn a-cancel" id="a-cerrar-modal">Cancelar</button>'+
+      '<button class="a-btn '+aModal.clase+'" id="a-confirmar">'+aEsc(aModal.accion)+'</button></div></div></div>';
+  }
+  const al = aLista.find(x=>x.id===aModal.id);
+  if (!al) return '';
+
+  if (aModal.tipo === 'devolver') {
+    const c = aCalc(al);
+    return '<div class="a-ov" id="a-ov"><div class="a-modal">'+
+      '<h3>Devolución</h3><div class="a-sub">'+aEsc(al.cliente)+' tiene afuera '+
+        c.fueraC+' cuerpo'+(c.fueraC===1?'':'s')+' y '+c.fueraN+' can'+(c.fueraN===1?'':'es')+
+        '. Puede devolver todo o una parte.</div>'+
+      '<label class="a-lbl">Cuerpos que devuelve</label>'+
+      '<div class="a-step"><button type="button" data-adstep="dc:-1">−</button>'+
+        '<input type="number" id="a-dev-c" class="a-in" value="'+c.fueraC+'" min="0" max="'+c.fueraC+'" inputmode="numeric" pattern="[0-9]*">'+
+        '<button type="button" data-adstep="dc:1">+</button></div>'+
+      '<label class="a-lbl">Canes que devuelve</label>'+
+      '<div class="a-step"><button type="button" data-adstep="dn:-1">−</button>'+
+        '<input type="number" id="a-dev-n" class="a-in" value="'+c.fueraN+'" min="0" max="'+c.fueraN+'" inputmode="numeric" pattern="[0-9]*">'+
+        '<button type="button" data-adstep="dn:1">+</button></div>'+
+      '<div class="a-hint">Lo que devuelva hoy deja de generar cobro hoy. Lo que siga afuera sigue sumando.</div>'+
+      '<div class="a-mbtns"><button class="a-btn a-cancel" id="a-cerrar-modal">Cancelar</button>'+
+      '<button class="a-btn a-blue" id="a-dev-ok">Registrar</button></div></div></div>';
+  }
+
+  if (aModal.tipo === 'liquidar') {
+    const c = aCalc(al);
+    const dep = aNum(al.deposito,0);
+    let det = '';
+    c.tramos.forEach(t => {
+      const piezas = [];
+      if (t.cuerpos) piezas.push(t.cuerpos+' cuerpo'+(t.cuerpos>1?'s':''));
+      if (t.canes)   piezas.push(t.canes+' can'+(t.canes>1?'es':''));
+      det += '<div class="a-lr"><span>'+piezas.join(' + ')+' × '+t.dias+' día'+(t.dias>1?'s':'')+
+             (t.tipo==='afuera' ? ' <i>(aún afuera)</i>' : '')+'</span><span>'+aMon(t.sub)+'</span></div>';
+    });
+    const pend = (c.fueraC||c.fueraN)
+      ? '<div class="a-hint" style="color:var(--red)">Ojo: todavía hay '+c.fueraC+' cuerpos y '+c.fueraN+
+        ' canes sin devolver. Si liquidas ahora se cobran hasta hoy y el alquiler se cierra.</div>' : '';
+    return '<div class="a-ov" id="a-ov"><div class="a-modal">'+
+      '<h3>Liquidar</h3><div class="a-sub">'+aEsc(al.cliente)+' · salió el '+aFechaCorta(al.fechaSalida)+'</div>'+
+      pend+
+      '<div class="a-liq">'+det+
+        '<div class="a-sep"></div>'+
+        '<div class="a-lr"><span>Alquiler</span><span>'+aMon(c.total)+'</span></div>'+
+      '</div>'+
+      '<label class="a-lbl">Cargo por daños o pérdida</label>'+
+      '<input type="text" id="a-cargos" class="a-in" value="" inputmode="numeric" placeholder="0">'+
+      '<div class="a-hint">Referencia: cuerpo '+aMon(aTar('reposicionCuerpo'))+
+        (aTar('reposicionCan')>0 ? ' · can '+aMon(aTar('reposicionCan')) : '')+'. Puedes poner cualquier valor.</div>'+
+      '<label class="a-lbl">Descuento o rebaja</label>'+
+      '<input type="text" id="a-ajuste" class="a-in" value="" inputmode="numeric" placeholder="0">'+
+      '<label class="a-lbl">Nota (opcional)</label>'+
+      '<input type="text" id="a-nota" class="a-in" value="" placeholder="Cómo quedó" autocomplete="off">'+
+      '<div class="a-liq" id="a-resumen">'+aResumenLiq(c.total, 0, 0, dep)+'</div>'+
+      '<div class="a-mbtns"><button class="a-btn a-cancel" id="a-cerrar-modal">Cancelar</button>'+
+      '<button class="a-btn a-green" id="a-liq-ok">Confirmar</button></div></div></div>';
+  }
+
+  return '';
+}
+
+function aResumenLiq(alquiler, cargos, ajuste, dep){
+  const totalCobrado = alquiler + cargos - ajuste;
+  const saldo = dep - totalCobrado;
+  let h = '<div class="a-lr"><span>Alquiler</span><span>'+aMon(alquiler)+'</span></div>';
+  if (cargos) h += '<div class="a-lr"><span>Daños o pérdida</span><span>'+aMon(cargos)+'</span></div>';
+  if (ajuste) h += '<div class="a-lr"><span>Descuento</span><span>−'+aMon(ajuste)+'</span></div>';
+  h += '<div class="a-sep"></div><div class="a-lr"><span>Total a cobrar</span><span class="a-big">'+aMon(totalCobrado)+'</span></div>';
+  if (dep > 0) {
+    h += '<div class="a-lr"><span>Depósito recibido</span><span>'+aMon(dep)+'</span></div><div class="a-sep"></div>';
+    h += saldo >= 0
+      ? '<div class="a-lr"><span>Se le devuelve</span><span class="a-big a-favor">'+aMon(saldo)+'</span></div>'
+      : '<div class="a-lr"><span>Debe pagar</span><span class="a-big a-debe">'+aMon(-saldo)+'</span></div>';
+  } else {
+    h += '<div class="a-lr"><span>Debe pagar</span><span class="a-big a-debe">'+aMon(totalCobrado)+'</span></div>';
+  }
+  return h;
+}
+
+function aVistaAjustes(){
+  return '<div class="a-ov" id="a-ov"><div class="a-modal">'+
+    '<h3>Inventario y tarifas</h3>'+
+    '<div class="a-sub">El total es cuántos tienes en el depósito, prestados o no. Lo disponible se calcula solo.</div>'+
+    '<div class="a-row2"><div><label class="a-lbl">Total cuerpos</label>'+
+      '<input type="number" id="a-cfg-bc" class="a-in" value="'+aTar('baseCuerpos')+'" min="0" inputmode="numeric"></div>'+
+      '<div><label class="a-lbl">Total canes</label>'+
+      '<input type="number" id="a-cfg-bn" class="a-in" value="'+aTar('baseCanes')+'" min="0" inputmode="numeric"></div></div>'+
+    '<div class="a-row2"><div><label class="a-lbl">Cuerpo / día</label>'+
+      '<input type="number" id="a-cfg-tc" class="a-in" value="'+aTar('tarifaCuerpo')+'" min="0" inputmode="numeric"></div>'+
+      '<div><label class="a-lbl">Can / día</label>'+
+      '<input type="number" id="a-cfg-tn" class="a-in" value="'+aTar('tarifaCan')+'" min="0" inputmode="numeric"></div></div>'+
+    '<label class="a-lbl">Depósito por cuerpo</label>'+
+    '<input type="number" id="a-cfg-dep" class="a-in" value="'+aTar('depositoPorCuerpo')+'" min="0" inputmode="numeric">'+
+    '<div class="a-hint">Se usa para proponer el depósito al prestar. Siempre se puede cambiar o dejar en 0.</div>'+
+    '<div class="a-row2"><div><label class="a-lbl">Reposición cuerpo</label>'+
+      '<input type="number" id="a-cfg-rc" class="a-in" value="'+aTar('reposicionCuerpo')+'" min="0" inputmode="numeric"></div>'+
+      '<div><label class="a-lbl">Reposición can</label>'+
+      '<input type="number" id="a-cfg-rn" class="a-in" value="'+aTar('reposicionCan')+'" min="0" inputmode="numeric"></div></div>'+
+    '<div class="a-hint">Solo como referencia al liquidar; el valor del cargo lo escribes tú.</div>'+
+    '<div class="a-mbtns"><button class="a-btn a-cancel" id="a-cerrar-modal">Cancelar</button>'+
+    '<button class="a-btn a-orange" id="a-cfg-ok">Guardar</button></div></div></div>';
+}
+
+/* ─── eventos ────────────────────────────────────────────── */
+// ¿Hay algo a medio llenar en el formulario de salida?
+function aFormEnUso(){
+  const c = document.getElementById('a-cliente');
+  const o = document.getElementById('a-obs');
+  return !!((c && c.value.trim()) || (o && o.value.trim()) || aForm.cuerpos > 0 || aForm.canes > 0);
+}
+
+function aQ(s){ return document.querySelectorAll('#mod-alquiler '+s); }
+function aId(s){ return document.getElementById(s); }
+
+function aBind(){
+  aQ('[data-atab]').forEach(b => b.onclick = () => { aTab = b.dataset.atab; aRender(); });
+
+  // pasos +/- del formulario de salida
+  aQ('[data-astep]').forEach(b => b.onclick = () => {
+    const [campo, delta] = b.dataset.astep.split(':');
+    const inp = aId(campo==='cuerpos'?'a-cuerpos':'a-canes');
+    const val = Math.max(0, aNum(inp.value,0) + parseInt(delta,10));
+    inp.value = val; aForm[campo] = val;
+    const dep = aId('a-deposito');
+    if (campo==='cuerpos' && dep) {
+      const d = val * aTar('depositoPorCuerpo');
+      dep.value = d>0 ? String(d).replace(/\B(?=(\d{3})+(?!\d))/g,'.') : '';
+    }
+    aRefrescarTotalDiario();
+  });
+  ['a-cuerpos','a-canes'].forEach(id => { const el = aId(id); if (el) el.oninput = () => {
+    aForm[id==='a-cuerpos'?'cuerpos':'canes'] = Math.max(0, aNum(el.value,0));
+    aRefrescarTotalDiario();
+  };});
+  const regBtn = aId('a-registrar'); if (regBtn) regBtn.onclick = aRegistrar;
+  const dpEl = aId('a-deposito'); if (dpEl) dpEl.oninput = () => {
+    const raw = dpEl.value.replace(/[^0-9]/g,'');
+    dpEl.value = raw ? raw.replace(/\B(?=(\d{3})+(?!\d))/g,'.') : '';
+  };
+
+  aQ('[data-adev]').forEach(b => b.onclick = () => { aModal = {tipo:'devolver', id:b.dataset.adev}; aRender(); });
+  aQ('[data-aliq]').forEach(b => b.onclick = () => { aModal = {tipo:'liquidar', id:b.dataset.aliq}; aRender(); });
+  aQ('[data-adel]').forEach(b => b.onclick = () => {
+    const al = aLista.find(x=>x.id===b.dataset.adel);
+    aConfirm('¿Eliminar registro?', (al?al.cliente:'')+' — no se puede deshacer.', 'Eliminar', 'a-del',
+      () => aEliminar(b.dataset.adel));
+  });
+  const ajBtn = aId('a-abrir-ajustes'); if (ajBtn) ajBtn.onclick = () => { aModal = {tipo:'ajustes'}; aRenderAjustes(); };
+
+  // modal
+  const ov = aId('a-ov');
+  if (ov) ov.onclick = e => { if (e.target.id==='a-ov') { aModal=null; aRender(); } };
+  const cerrar = aId('a-cerrar-modal'); if (cerrar) cerrar.onclick = () => { aModal=null; aRender(); };
+  const conf = aId('a-confirmar'); if (conf) conf.onclick = () => { const f=aConfirmFn; aModal=null; aConfirmFn=null; aRender(); if(f) f(); };
+
+  aQ('[data-adstep]').forEach(b => b.onclick = () => {
+    const [campo, delta] = b.dataset.adstep.split(':');
+    const inp = aId(campo==='dc'?'a-dev-c':'a-dev-n');
+    const max = aNum(inp.getAttribute('max'), 0);
+    inp.value = Math.min(max, Math.max(0, aNum(inp.value,0) + parseInt(delta,10)));
+  });
+  const devOk = aId('a-dev-ok');
+  if (devOk) devOk.onclick = () => aGuardarDevolucion(aModal.id, aNum(aId('a-dev-c').value,0), aNum(aId('a-dev-n').value,0));
+
+  ['a-cargos','a-ajuste'].forEach(id => { const el = aId(id); if (el) el.oninput = () => {
+    const raw = el.value.replace(/[^0-9]/g,'');
+    el.value = raw ? raw.replace(/\B(?=(\d{3})+(?!\d))/g,'.') : '';
+    aRefrescarResumen();
+  };});
+  const liqOk = aId('a-liq-ok');
+  if (liqOk) liqOk.onclick = () => aLiquidar(aModal.id,
+    aNum(String(aId('a-cargos').value).replace(/\./g,''),0),
+    aNum(String(aId('a-ajuste').value).replace(/\./g,''),0),
+    (aId('a-nota').value||'').trim());
+
+  const cfgOk = aId('a-cfg-ok');
+  if (cfgOk) cfgOk.onclick = async () => {
+    aCfg.baseCuerpos      = Math.max(0, aNum(aId('a-cfg-bc').value, aTar('baseCuerpos')));
+    aCfg.baseCanes        = Math.max(0, aNum(aId('a-cfg-bn').value, aTar('baseCanes')));
+    aCfg.tarifaCuerpo     = Math.max(0, aNum(aId('a-cfg-tc').value, aTar('tarifaCuerpo')));
+    aCfg.tarifaCan        = Math.max(0, aNum(aId('a-cfg-tn').value, aTar('tarifaCan')));
+    aCfg.depositoPorCuerpo= Math.max(0, aNum(aId('a-cfg-dep').value, aTar('depositoPorCuerpo')));
+    aCfg.reposicionCuerpo = Math.max(0, aNum(aId('a-cfg-rc').value, aTar('reposicionCuerpo')));
+    aCfg.reposicionCan    = Math.max(0, aNum(aId('a-cfg-rn').value, aTar('reposicionCan')));
+    aModal = null; aRender();
+    await aGuardarCfg();
+  };
+}
+
+// El modal de ajustes se pinta aparte para no reconstruir toda la vista
+function aRenderAjustes(){
+  const root = document.getElementById('alquiler-root');
+  if (!root) return;
+  const base = root.innerHTML.replace(/<div class="a-ov"[\s\S]*$/, '');
+  root.innerHTML = base + aVistaAjustes();
+  aBind();
+}
+
+function aRefrescarTotalDiario(){
+  const el = aQ('.a-total')[0]; if (!el) return;
+  const diario = aForm.cuerpos*aTar('tarifaCuerpo') + aForm.canes*aTar('tarifaCan');
+  const sub = el.querySelector('.a-t-sub'), val = el.querySelector('.a-t-val');
+  if (sub) sub.textContent = aForm.cuerpos+' cuerpos × '+aMon(aTar('tarifaCuerpo'))+' + '+aForm.canes+' canes × '+aMon(aTar('tarifaCan'));
+  if (val) val.textContent = aMon(diario);
+}
+function aRefrescarResumen(){
+  const al = aLista.find(x=>x.id===(aModal&&aModal.id)); if (!al) return;
+  const box = aId('a-resumen'); if (!box) return;
+  const c = aCalc(al);
+  box.innerHTML = aResumenLiq(c.total,
+    aNum(String(aId('a-cargos').value).replace(/\./g,''),0),
+    aNum(String(aId('a-ajuste').value).replace(/\./g,''),0),
+    aNum(al.deposito,0));
+}
+
+/* ─── API para el shell ──────────────────────────────────── */
+window.ALQUILER = {
+  init(){ /* usa la misma sesión que los demás módulos */ },
+  async reload(){ aCfg = await aCargarCfg(); await aCargarDatos(); aCargado = true; aRender(); },
+  async refrescar(){
+    aCfg = await aCargarCfg(); await aCargarDatos(); aCargado = true;
+    // Los datos quedan al día en memoria, pero NO se repinta si hay algo a medio
+    // escribir: repintar borraría el formulario o el modal abierto. Se repinta
+    // solo cuando la persona cambia de pestaña o cierra el modal.
+    if (aModal) return;
+    if (aTab === 'nuevo' && aFormEnUso()) return;
+    aRender();
+  },
+  show(){ if (!aCargado) { this.reload(); } else { aRender(); } },
+  summary(){
+    if (!aCargado) return { afuera:0, acumulado:0, clientes:0 };
+    const ab = aAbiertos();
+    let acum = 0, piezas = 0;
+    ab.forEach(al => { const c = aCalc(al); acum += c.total; piezas += c.fueraC + c.fueraN; });
+    return { afuera: piezas, acumulado: acum, clientes: ab.length };
+  },
+  _test: { calc:aCalc, dias:aDias, inventario:aInventario }
+};
+
+})();
+
 /* ─── Login ─────────────────────────────────────────────────── */
 function pintarLogin() {
   const sel = document.getElementById('login-user');
@@ -2751,12 +3468,13 @@ async function abrirApp() {
   window.GASTOS.init(SESSION);
   window.GAS.init(SESSION);
   window.HORAS.init(SESSION);
+  window.ALQUILER.init(SESSION);
 
   irA('inicio');
   pintarInicio();
 
   barra(true);
-  await Promise.all([ window.GASTOS.reload(), window.GAS.reload(), window.HORAS.reload() ]);
+  await Promise.all([ window.GASTOS.reload(), window.GAS.reload(), window.HORAS.reload(), window.ALQUILER.reload() ]);
   barra(false);
   pintarInicio();
 }
@@ -2777,7 +3495,8 @@ async function refrescarSiHaceFalta(forzar) {
   try {
     await Promise.all([
       window.GASTOS.refrescar(),
-      window.GAS.refrescar()
+      window.GAS.refrescar(),
+      window.ALQUILER.refrescar()
       // HORAS se refresca solo: ya tiene su propio control de semana.
     ]);
     pintarInicio();
@@ -2793,7 +3512,7 @@ document.addEventListener('visibilitychange', () => {
 window.addEventListener('focus', () => refrescarSiHaceFalta());
 
 /* ─── Navegación entre módulos ──────────────────────────────── */
-const TITULOS = { inicio: 'Inicio', gastos: 'Control de gastos', gas: 'Venta de gas', horas: 'Control de horas' };
+const TITULOS = { inicio: 'Inicio', gastos: 'Control de gastos', gas: 'Venta de gas', horas: 'Control de horas', alquiler: 'Alquiler de andamios' };
 
 function irA(mod) {
   document.querySelectorAll('.module').forEach(s => s.classList.remove('active'));
@@ -2805,6 +3524,7 @@ function irA(mod) {
   if (mod === 'gastos') window.GASTOS.show();
   if (mod === 'gas')    window.GAS.show();
   if (mod === 'horas')  window.HORAS.show();
+  if (mod === 'alquiler') window.ALQUILER.show();
   refrescarSiHaceFalta();   // con freno de 20s: no gasta lecturas por tocar pestañas
 }
 window.irA = irA;
@@ -2814,10 +3534,12 @@ const pesos = n => '$' + Math.round(Number(n) || 0).toString().replace(/\B(?=(\d
 
 function pintarInicio() {
   if (!SESSION) return;
-  let g = { total: 0, count: 0 }, s = { llenos: 0, salidas: 0 }, h = { total: 0, meta: 42, completos: 0 };
+  let g = { total: 0, count: 0 }, s = { llenos: 0, salidas: 0 }, h = { total: 0, meta: 42, completos: 0 },
+      a = { afuera: 0, acumulado: 0, clientes: 0 };
   try { g = window.GASTOS.summary(); } catch (e) {}
   try { s = window.GAS.summary(); }    catch (e) {}
   try { h = window.HORAS.summary(); }  catch (e) {}
+  try { a = window.ALQUILER.summary(); } catch (e) {}
 
   const hoy = new Date().toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long' });
 
@@ -2840,15 +3562,21 @@ function pintarInicio() {
         <div class="app-card-sub">Cilindros, deudas y préstamos</div>
         <div class="app-card-stat">${s.llenos} llenos<small>${s.salidas} ${s.salidas === 1 ? 'salida hoy' : 'salidas hoy'}</small></div>
       </button>
-      <button class="app-card" data-go="horas" style="grid-column:1/-1">
+      <button class="app-card" data-go="horas">
         <div class="app-card-icon" style="background:rgba(26,95,168,.16)">⏱️</div>
         <div class="app-card-name">HORAS</div>
         <div class="app-card-sub">Control semanal del equipo</div>
-        <div class="app-card-stat">${h.total.toFixed(1)}h esta semana<small>${h.completos}/6 con la meta cumplida</small></div>
+        <div class="app-card-stat">${h.total.toFixed(1)}h<small>${h.completos}/6 con la meta</small></div>
+      </button>
+      <button class="app-card" data-go="alquiler">
+        <div class="app-card-icon" style="background:rgba(236,68,9,.16)">🏗️</div>
+        <div class="app-card-name">ALQUILER</div>
+        <div class="app-card-sub">Andamios y canes</div>
+        <div class="app-card-stat">${a.afuera} afuera<small>${a.clientes} ${a.clientes === 1 ? 'cliente' : 'clientes'} · ${pesos(a.acumulado)}</small></div>
       </button>
     </div>
     <div class="home-foot">
-      Las tres aplicaciones guardan en la <b>misma nube</b> de siempre.<br>
+      Las cuatro aplicaciones guardan en la <b>misma nube</b> de siempre.<br>
       Puedes cambiar de una a otra desde el menú de abajo.
     </div>`;
 }
