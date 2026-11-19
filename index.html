@@ -511,7 +511,7 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
 #mod-horas .h-loading{padding:50px 20px;text-align:center;font-family:'Barlow Condensed',sans-serif;
   color:var(--gray);font-size:14px;text-transform:uppercase}
 
-/* ═══════════════════ MÓDULO ALQUILER ═══════════════════ */
+/* ═══════════════════ MÓDULO ANDAMIOS ═══════════════════ */
 #mod-alquiler{background:transparent}
 #mod-alquiler .content{max-width:600px;margin:0 auto;padding:0 16px calc(24px + var(--safe-bottom))}
 #mod-alquiler button{touch-action:manipulation}
@@ -729,7 +729,8 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
 
         <label class="field-label">Cliente / Nombre</label>
         <input type="text" id="reg-cliente" class="field-input" placeholder="Nombre del cliente"
-          autocorrect="off" autocapitalize="words" spellcheck="false" autocomplete="off">
+          autocorrect="off" autocapitalize="words" spellcheck="false" autocomplete="off" list="lista-clientes-gas">
+        <datalist id="lista-clientes-gas"></datalist>
 
         <label class="field-label">Tamaño del cilindro</label>
         <select id="sel-tamano" class="field-input">
@@ -879,7 +880,7 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
       <div id="horas-root"></div>
     </section>
 
-    <!-- ── ALQUILER ── -->
+    <!-- ── ANDAMIOS ── -->
     <section class="module" id="mod-alquiler">
       <div id="alquiler-root"></div>
     </section>
@@ -901,7 +902,7 @@ main#modules{padding-bottom:calc(var(--nav-h) + 14px + var(--safe-bottom))}
       <span class="ni-ico">⏱️</span><span class="ni-lbl">Horas</span>
     </button>
     <button class="nav-item" data-mod="alquiler">
-      <span class="ni-ico">🏗️</span><span class="ni-lbl">Alquiler</span>
+      <span class="ni-ico">🏗️</span><span class="ni-lbl">Andamios</span>
     </button>
   </nav>
 
@@ -2041,7 +2042,23 @@ function renderResumen() {
     </div>`;
 }
 
+// Nombres de cliente ya usados, para que el mismo señor no quede escrito de
+// tres formas distintas ("Beto", "beto", "Beto ") y aparezca como tres deudas.
+function refrescarClientesGas() {
+  const dl = document.getElementById('lista-clientes-gas');
+  if (!dl) return;
+  const vistos = new Map();
+  cache.ventas.forEach(v => {
+    const nom = String(v.cliente || '').trim();
+    // cache.ventas viene de la más nueva a la más vieja: se queda la grafía más reciente
+    if (nom && !vistos.has(nom.toLowerCase())) vistos.set(nom.toLowerCase(), nom);
+  });
+  const nombres = [...vistos.values()].sort((a, b) => a.localeCompare(b, 'es'));
+  dl.innerHTML = nombres.map(nm => '<option value="' + esc(nm) + '"></option>').join('');
+}
+
 function renderAll() {
+  refrescarClientesGas();
   // Reset mapa antes del ciclo completo
   clienteMap={}; clienteIdCounter=0;
   renderMovimientos(); renderDeudas(); renderCilindros(); renderResumen();
@@ -2186,7 +2203,9 @@ const H_FESTIVOS_EMILIANI = [
   [11, 11], // Independencia de Cartagena
 ];
 
-const H_FESTIVOS_PASCUA = [ -3, -2, 39, 60, 68 ];
+// Jueves y Viernes Santo caen en su día; los otros tres se corren al lunes (Ley Emiliani).
+const H_PASCUA_FIJOS  = [ -3, -2 ];
+const H_PASCUA_LUNES  = [ 39, 60, 68 ];
 
 function hPascua(anio) {
   const a = anio % 19;
@@ -2226,9 +2245,8 @@ function hFestivosDelAnio(anio) {
   H_FESTIVOS_FIJOS.forEach(([mes, dia]) => add(new Date(anio, mes - 1, dia)));
   H_FESTIVOS_EMILIANI.forEach(([mes, dia]) => add(hPrimerLunes(new Date(anio, mes - 1, dia))));
   const pascua = hPascua(anio);
-  add(hAddDias(pascua, -3));
-  add(hAddDias(pascua, -2));
-  [39, 60, 68].forEach(offset => add(hPrimerLunes(hAddDias(pascua, offset))));
+  H_PASCUA_FIJOS.forEach(off => add(hAddDias(pascua, off)));
+  H_PASCUA_LUNES.forEach(off => add(hPrimerLunes(hAddDias(pascua, off))));
   return set;
 }
 
@@ -2824,7 +2842,7 @@ window.HORAS = {
 
 
 /* ═══════════════════════════════════════════════════════════════
-   MÓDULO ALQUILER — andamios (cuerpos) y canes
+   MÓDULO ANDAMIOS — alquiler de cuerpos de andamio y canes
    Colecciones: alq_alquileres / alq_config
    Regla de cobro: se cuentan días calendario incluyendo el día de
    entrega y el de devolución (sale y vuelve el mismo día = 1 día).
@@ -2948,7 +2966,7 @@ async function aRegistrar(){
   const inv = aInventario();
   if (cuerpos > inv.dispC || canes > inv.dispN) {
     aConfirm('Más de lo disponible',
-      'Según el inventario quedan '+inv.dispC+' cuerpos y '+inv.dispN+' canes, y vas a sacar '+
+      'Según el inventario quedan '+inv.dispC+' cuerpos y '+inv.dispN+' canes, y vas a alquilar '+
       cuerpos+' y '+canes+'. Si el conteo está viejo, ajústalo en Inventario.',
       'Registrar igual','a-orange', ()=>aGuardarSalida(cliente,cuerpos,canes,deposito,obs));
     return;
@@ -2968,7 +2986,7 @@ async function aGuardarSalida(cliente,cuerpos,canes,deposito,obs){
     document.getElementById('a-cliente').value = '';
     document.getElementById('a-obs').value = '';
     aForm = { cuerpos:0, canes:0 };
-    window.__toast('✓ Salida registrada','success');
+    window.__toast('✓ Alquiler registrado','success');
     aTab = 'activos'; aRender();
   } catch(e){ console.error(e); window.__toast('Error al guardar','error'); }
   aCargando = false; barra(false);
@@ -3046,7 +3064,7 @@ function aRender(){
   let h = '<div class="content">'+
     '<div class="a-sticky"><div class="a-tabs">'+
     '<button type="button" data-atab="activos" class="'+(aTab==='activos'?'active':'')+'">Afuera</button>'+
-    '<button type="button" data-atab="nuevo" class="'+(aTab==='nuevo'?'active':'')+'">Prestar</button>'+
+    '<button type="button" data-atab="nuevo" class="'+(aTab==='nuevo'?'active':'')+'">Alquilar</button>'+
     '<button type="button" data-atab="inventario" class="'+(aTab==='inventario'?'active':'')+'">Inventario</button>'+
     '<button type="button" data-atab="historial" class="'+(aTab==='historial'?'active':'')+'">Historial</button>'+
     '</div></div>';
@@ -3063,7 +3081,7 @@ function aRender(){
 function aVistaActivos(){
   const abiertos = aAbiertos();
   if (!abiertos.length) return '<div class="a-empty"><div class="a-empty-i">📦</div>'+
-    '<div class="a-empty-t">No hay nada prestado en este momento</div></div>';
+    '<div class="a-empty-t">No hay nada alquilado en este momento</div></div>';
   let out = '';
   abiertos.forEach(al => {
     const c = aCalc(al);
@@ -3079,7 +3097,7 @@ function aVistaActivos(){
         '<div class="a-acum">'+aMon(c.total)+'<small>acumulado</small></div></div>'+
       '<div class="a-meta">'+
         (piezas.length ? piezas.join(' · ')+' afuera' : 'Todo devuelto — falta liquidar')+'<br>'+
-        'Salió el '+aFechaCorta(al.fechaSalida)+' · <b>'+c.diasTotales+'</b> día'+(c.diasTotales>1?'s':'')+
+        'Alquilado el '+aFechaCorta(al.fechaSalida)+' · <b>'+c.diasTotales+'</b> día'+(c.diasTotales>1?'s':'')+
         (devs ? ' · '+devs+' devolución'+(devs>1?'es':'')+' parcial'+(devs>1?'es':'') : '')+
       '</div>'+
       '<div class="a-acts">'+
@@ -3096,10 +3114,11 @@ function aVistaNuevo(){
   const dep = aForm.cuerpos * aTar('depositoPorCuerpo');
   const diario = aForm.cuerpos*aTar('tarifaCuerpo') + aForm.canes*aTar('tarifaCan');
   return '<div class="a-card">'+
-    '<div class="a-title"><div class="a-title-ico">🏗️</div>Nueva salida</div>'+
+    '<div class="a-title"><div class="a-title-ico">🏗️</div>Nuevo alquiler</div>'+
     '<label class="a-lbl">Cliente</label>'+
     '<input type="text" id="a-cliente" class="a-in" placeholder="Nombre de quien se lo lleva" '+
-      'autocomplete="off" autocorrect="off" autocapitalize="words" spellcheck="false">'+
+      'autocomplete="off" autocorrect="off" autocapitalize="words" spellcheck="false" list="a-lista-clientes">'+
+    '<datalist id="a-lista-clientes">'+aClientesHTML()+'</datalist>'+
     '<label class="a-lbl">Cuerpos de andamio — disponibles: '+inv.dispC+'</label>'+
     '<div class="a-step"><button type="button" data-astep="cuerpos:-1">−</button>'+
       '<input type="number" id="a-cuerpos" class="a-in" value="'+aForm.cuerpos+'" min="0" inputmode="numeric" pattern="[0-9]*">'+
@@ -3117,7 +3136,7 @@ function aVistaNuevo(){
     '<div class="a-hint">A los clientes corrientes no se les pide depósito: deja el campo en 0.</div>'+
     '<label class="a-lbl">Observación (opcional)</label>'+
     '<input type="text" id="a-obs" class="a-in" placeholder="Obra, teléfono, quién lo recibió..." autocomplete="off">'+
-    '<button class="a-btn a-orange" id="a-registrar">REGISTRAR SALIDA</button>'+
+    '<button class="a-btn a-orange" id="a-registrar">REGISTRAR ALQUILER</button>'+
     '</div>';
 }
 
@@ -3175,6 +3194,18 @@ function aVistaHistorial(){
   return out;
 }
 
+// Mismos nombres ya usados, para no partir a un cliente en dos por una tilde.
+function aClientesHTML(){
+  const vistos = new Map();
+  aLista.forEach(al => {
+    const nom = String(al.cliente||'').trim();
+    // aLista viene del alquiler más nuevo al más viejo: se queda la grafía más reciente
+    if (nom && !vistos.has(nom.toLowerCase())) vistos.set(nom.toLowerCase(), nom);
+  });
+  return [...vistos.values()].sort((a,b)=>a.localeCompare(b,'es'))
+    .map(nm => '<option value="'+aEsc(nm)+'"></option>').join('');
+}
+
 /* ─── modales ────────────────────────────────────────────── */
 function aVistaModal(){
   if (aModal.tipo === 'confirm') {
@@ -3220,7 +3251,7 @@ function aVistaModal(){
       ? '<div class="a-hint" style="color:var(--red)">Ojo: todavía hay '+c.fueraC+' cuerpos y '+c.fueraN+
         ' canes sin devolver. Si liquidas ahora se cobran hasta hoy y el alquiler se cierra.</div>' : '';
     return '<div class="a-ov" id="a-ov"><div class="a-modal">'+
-      '<h3>Liquidar</h3><div class="a-sub">'+aEsc(al.cliente)+' · salió el '+aFechaCorta(al.fechaSalida)+'</div>'+
+      '<h3>Liquidar</h3><div class="a-sub">'+aEsc(al.cliente)+' · alquilado el '+aFechaCorta(al.fechaSalida)+'</div>'+
       pend+
       '<div class="a-liq">'+det+
         '<div class="a-sep"></div>'+
@@ -3263,7 +3294,7 @@ function aResumenLiq(alquiler, cargos, ajuste, dep){
 function aVistaAjustes(){
   return '<div class="a-ov" id="a-ov"><div class="a-modal">'+
     '<h3>Inventario y tarifas</h3>'+
-    '<div class="a-sub">El total es cuántos tienes en el depósito, prestados o no. Lo disponible se calcula solo.</div>'+
+    '<div class="a-sub">El total es cuántos tienes en el depósito, alquilados o no. Lo disponible se calcula solo.</div>'+
     '<div class="a-row2"><div><label class="a-lbl">Total cuerpos</label>'+
       '<input type="number" id="a-cfg-bc" class="a-in" value="'+aTar('baseCuerpos')+'" min="0" inputmode="numeric"></div>'+
       '<div><label class="a-lbl">Total canes</label>'+
@@ -3274,7 +3305,7 @@ function aVistaAjustes(){
       '<input type="number" id="a-cfg-tn" class="a-in" value="'+aTar('tarifaCan')+'" min="0" inputmode="numeric"></div></div>'+
     '<label class="a-lbl">Depósito por cuerpo</label>'+
     '<input type="number" id="a-cfg-dep" class="a-in" value="'+aTar('depositoPorCuerpo')+'" min="0" inputmode="numeric">'+
-    '<div class="a-hint">Se usa para proponer el depósito al prestar. Siempre se puede cambiar o dejar en 0.</div>'+
+    '<div class="a-hint">Se usa para proponer el depósito al registrar un alquiler. Siempre se puede cambiar o dejar en 0.</div>'+
     '<div class="a-row2"><div><label class="a-lbl">Reposición cuerpo</label>'+
       '<input type="number" id="a-cfg-rc" class="a-in" value="'+aTar('reposicionCuerpo')+'" min="0" inputmode="numeric"></div>'+
       '<div><label class="a-lbl">Reposición can</label>'+
@@ -3285,7 +3316,7 @@ function aVistaAjustes(){
 }
 
 /* ─── eventos ────────────────────────────────────────────── */
-// ¿Hay algo a medio llenar en el formulario de salida?
+// ¿Hay algo a medio llenar en el formulario de alquiler?
 function aFormEnUso(){
   const c = document.getElementById('a-cliente');
   const o = document.getElementById('a-obs');
@@ -3298,7 +3329,7 @@ function aId(s){ return document.getElementById(s); }
 function aBind(){
   aQ('[data-atab]').forEach(b => b.onclick = () => { aTab = b.dataset.atab; aRender(); });
 
-  // pasos +/- del formulario de salida
+  // pasos +/- del formulario de alquiler
   aQ('[data-astep]').forEach(b => b.onclick = () => {
     const [campo, delta] = b.dataset.astep.split(':');
     const inp = aId(campo==='cuerpos'?'a-cuerpos':'a-canes');
@@ -3444,6 +3475,8 @@ function intentarLogin() {
   } else {
     guardarSesion({ nombre, isAdmin: false });
   }
+  const campoClave = document.getElementById('login-pass');
+  if (campoClave) campoClave.value = '';   // no dejarla escrita mientras se usa la app
   abrirApp();
 }
 
@@ -3512,7 +3545,7 @@ document.addEventListener('visibilitychange', () => {
 window.addEventListener('focus', () => refrescarSiHaceFalta());
 
 /* ─── Navegación entre módulos ──────────────────────────────── */
-const TITULOS = { inicio: 'Inicio', gastos: 'Control de gastos', gas: 'Venta de gas', horas: 'Control de horas', alquiler: 'Alquiler de andamios' };
+const TITULOS = { inicio: 'Inicio', gastos: 'Control de gastos', gas: 'Venta de gas', horas: 'Control de horas', alquiler: 'Andamios' };
 
 function irA(mod) {
   document.querySelectorAll('.module').forEach(s => s.classList.remove('active'));
@@ -3570,8 +3603,8 @@ function pintarInicio() {
       </button>
       <button class="app-card" data-go="alquiler">
         <div class="app-card-icon" style="background:rgba(236,68,9,.16)">🏗️</div>
-        <div class="app-card-name">ALQUILER</div>
-        <div class="app-card-sub">Andamios y canes</div>
+        <div class="app-card-name">ANDAMIOS</div>
+        <div class="app-card-sub">Alquiler de andamios y canes</div>
         <div class="app-card-stat">${a.afuera} afuera<small>${a.clientes} ${a.clientes === 1 ? 'cliente' : 'clientes'} · ${pesos(a.acumulado)}</small></div>
       </button>
     </div>
